@@ -17,13 +17,6 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - name: List directories for debugging
-      run: |
-        echo "Current directory:"
-        pwd
-        echo "Listing all files recursively:"
-        ls -R
-
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
@@ -32,6 +25,6 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore ./UniversityAdmission/UniversityAdmission.sln
     - name: Build
-      run: dotnet build ./UniversityAdmission/UniversityAdmission.sln --no-restore
+      run: dotnet build --no-restore ./UniversityAdmission/UniversityAdmission.sln 
     - name: Test
-      run: dotnet test ./UniversityAdmission/UniversityAdmission.sln --no-build --verbosity normal
+      run: dotnet test --no-restore ./UniversityAdmission/UniversityAdmission.sln 

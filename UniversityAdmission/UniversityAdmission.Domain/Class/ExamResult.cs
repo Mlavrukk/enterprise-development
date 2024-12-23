@@ -18,7 +18,7 @@ public class ExamResult
     /// <summary>
     /// Идентификатор экзамена
     /// </summary>
-    public required int ExamI  { get; set; }
+    public required int ExamId  { get; set; }
 
     /// <summary>
     /// Баллы абитуриента на экзамене
