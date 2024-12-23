@@ -1,6 +1,5 @@
 using UniversityAdmission.Domain.Class;
 namespace UniversityAdmission.Test;
-#меняю кодировку
 public class UniversityAdmissionFixture
 {
     public List<Applicant> Applicants {  get; set; }
