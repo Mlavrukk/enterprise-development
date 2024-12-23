@@ -23,8 +23,8 @@ jobs:
         dotnet-version: 8.0.x 
 
     - name: Restore dependencies
-      run: dotnet restore ./UniversityAdmission/UniversityAdmission.sln
+      run: dotnet restore UniversityAdmission/UniversityAdmission.sln
     - name: Build
-      run: dotnet build --no-restore ./UniversityAdmission/UniversityAdmission.sln 
+      run: dotnet build --no-restore UniversityAdmission/UniversityAdmission.sln 
     - name: Test
-      run: dotnet test --no-restore ./UniversityAdmission/UniversityAdmission.sln 
+      run: dotnet test --no-restore UniversityAdmission/UniversityAdmission.sln 
