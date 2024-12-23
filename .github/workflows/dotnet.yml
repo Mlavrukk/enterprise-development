@@ -1,14 +1,14 @@
 # This workflow will build a .NET project
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
 
-name: .NET
+name: build and test
 
 on:
   push:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
-
+  
 jobs:
   build:
 
@@ -16,13 +16,28 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+
+    - name: List directories for debugging
+      run: |
+        echo "Current directory:"
+        pwd
+        echo "Listing all files recursively:"
+        ls -R
+
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: 8.0.x
+        dotnet-version: 8.0.x 
+
     - name: Restore dependencies
-      run: dotnet restore ./UniversityAdmission/UniversityAdmission.sln
+      run: |
+        dotnet restore UniversityAdmission.Domain/UniversityAdmission.Domain\UniversityAdmission.Domain.csproj
+        dotnet restore UniversityAdmission/UniversityAdmission.tests/UniversityAdmission.Tests.csproj
+
     - name: Build
-      run: dotnet build ./UniversityAdmission/UniversityAdmission.sln --no-restore
+      run: |
+        dotnet build   UniversityAdmission\UniversityAdmission.Domain\UniversityAdmission.Domain\UniversityAdmission.Domain.csproj
+        dotnet build UniversityAdmission/UniversityAdmission.Tests/UniversityAdmission.Tests.csproj --no-restore
+
     - name: Test
-      run: dotnet test ./UniversityAdmission/UniversityAdmission.sln --no-build --verbosity normal
+      run: dotnet test UniversityAdmission/UniversityAdmission.Tests/UniversityAdmission.tests.csproj --no-build --verbosity normal
