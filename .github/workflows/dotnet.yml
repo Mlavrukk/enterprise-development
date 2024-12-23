@@ -30,14 +30,8 @@ jobs:
         dotnet-version: 8.0.x 
 
     - name: Restore dependencies
-      run: |
-        dotnet restore UniversityAdmission.Domain/UniversityAdmission.Domain\UniversityAdmission.Domain.csproj
-        dotnet restore UniversityAdmission/UniversityAdmission.tests/UniversityAdmission.Tests.csproj
-
+      run: dotnet restore ./UniversityAdmission/UniversityAdmission.sln
     - name: Build
-      run: |
-        dotnet build   UniversityAdmission\UniversityAdmission.Domain\UniversityAdmission.Domain\UniversityAdmission.Domain.csproj
-        dotnet build UniversityAdmission/UniversityAdmission.Tests/UniversityAdmission.Tests.csproj --no-restore
-
+      run: dotnet build ./UniversityAdmission/UniversityAdmission.sln --no-restore
     - name: Test
-      run: dotnet test UniversityAdmission/UniversityAdmission.Tests/UniversityAdmission.tests.csproj --no-build --verbosity normal
+      run: dotnet test ./UniversityAdmission/UniversityAdmission.sln --no-build --verbosity normal
