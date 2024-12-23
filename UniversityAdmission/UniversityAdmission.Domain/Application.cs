@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace UniversityAdmission.Domain.Entities
+namespace UniversityAdmission.UniversityAdmission.Domain.Entities
 {
     /// <summary>
     /// «а€вление абитуриента на специальность

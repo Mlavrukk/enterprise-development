@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using static System.Net.Mime.MediaTypeNames;
 
-namespace UniversityAdmission.Domain.Entities
+namespace UniversityAdmission.UniversityAdmission.Domain.Entities
 {
     /// <summary>
     /// Абитуриент
