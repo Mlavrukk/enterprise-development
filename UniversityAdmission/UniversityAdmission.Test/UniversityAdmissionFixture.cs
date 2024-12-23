@@ -16,7 +16,7 @@ public class UniversityAdmissionFixture
             {
                 IdApplicant = 0,
                 FullName = "Васин Василий Васильевич",
-                DateOfBirth = new DateOnly(2003,7,11),
+                DateOfBirth = new DateOnly(2004,12,27),
                 Country  = "Россия",
                 City = "Самара"
             },
@@ -55,13 +55,22 @@ public class UniversityAdmissionFixture
         ];
 
 
-
         Exams =
         [
             new Exam
             {
                 IdExam = 0,
                 Name = "Математика",
+            },
+            new Exam
+            {
+                IdExam = 1,
+                Name = "Русский Язык",
+            },
+            new Exam
+            {
+                IdExam = 2,
+                Name = "Информатика",
             }
         ];
 
@@ -73,10 +82,116 @@ public class UniversityAdmissionFixture
                 IdExamResult = 0,
                 ApplicantId = 0,
                 ExamId = 0,
-                Score = 46,
+                Score = 46
+            },
+            new ExamResult
+            {
+                IdExamResult = 1,
+                ApplicantId = 0,
+                ExamId = 1,
+                Score = 52
+            },
+            new ExamResult
+            {
+                IdExamResult = 2,
+                ApplicantId = 0,
+                ExamId = 2,
+                Score = 1
+            },
 
-            }
+
+            new ExamResult
+            {
+                IdExamResult = 3,
+                ApplicantId = 1,
+                ExamId = 0,
+                Score = 41
+            },
+            new ExamResult
+            {
+                IdExamResult = 4,
+                ApplicantId = 1,
+                ExamId = 1,
+                Score = 52
+            },
+            new ExamResult
+            {
+                IdExamResult = 5,
+                ApplicantId = 1,
+                ExamId = 2,
+                Score = 12
+            },
+
+
+            new ExamResult
+            {
+                IdExamResult = 6,
+                ApplicantId = 2,
+                ExamId = 0,
+                Score = 100
+            },
+            new ExamResult
+            {
+                IdExamResult = 7,
+                ApplicantId = 2,
+                ExamId = 1,
+                Score = 52
+            },
+            new ExamResult
+            {
+                IdExamResult = 8,
+                ApplicantId = 2,
+                ExamId = 2,
+                Score = 100
+            },
+
+
+            new ExamResult
+            {
+                IdExamResult = 9,
+                ApplicantId = 3,
+                ExamId = 0,
+                Score = 46
+            },
+            new ExamResult
+            {
+                IdExamResult = 10,
+                ApplicantId = 3,
+                ExamId = 1,
+                Score = 12
+            },
+            new ExamResult
+            {
+                IdExamResult = 11,
+                ApplicantId = 3,
+                ExamId = 2,
+                Score = 12
+            },
+
+
+            new ExamResult
+            {
+                IdExamResult = 12,
+                ApplicantId = 4,
+                ExamId = 0,
+                Score = 52
+            },
+            new ExamResult
+            {
+                IdExamResult = 13,
+                ApplicantId = 4,
+                ExamId = 1,
+                Score = 52
+            },
+            new ExamResult
+            {
+                IdExamResult = 14,
+                ApplicantId = 4,
+                ExamId = 2,
+                Score = 52
+            },
         ];
+
 
         Specialtys =
         [
@@ -86,6 +201,25 @@ public class UniversityAdmissionFixture
                 Code = "10.05.03D",
                 Name = "Ибас",
                 Faculty = "ИИК"
+            },
+            new Specialty
+            {
+                IdSpecialty = 1,
+                Code = "10.05.04D",
+                Name = "ФИИТ",
+                Faculty = "ИИК"
+            }
+        ];
+
+
+        Applications =
+        [
+            new Application
+            {
+                IdApplication = 0,
+                ApplicantId = 0,
+                SpecialtyId = 0,
+                Priority = 0,
             }
         ];
     }
