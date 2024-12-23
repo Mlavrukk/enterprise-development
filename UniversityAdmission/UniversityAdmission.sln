@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UniversityAdmission.Domain"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversityAdmission.Test", "UniversityAdmission.Test\UniversityAdmission.Test.csproj", "{18B06C3E-1465-46EE-B6E6-F4891B9DE16E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversityAdmission.Server", "UniversityAdmission.Server\UniversityAdmission.Server.csproj", "{C87A76FA-AB6A-4520-91D7-99C02F579B11}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{18B06C3E-1465-46EE-B6E6-F4891B9DE16E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{18B06C3E-1465-46EE-B6E6-F4891B9DE16E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{18B06C3E-1465-46EE-B6E6-F4891B9DE16E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C87A76FA-AB6A-4520-91D7-99C02F579B11}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C87A76FA-AB6A-4520-91D7-99C02F579B11}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C87A76FA-AB6A-4520-91D7-99C02F579B11}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C87A76FA-AB6A-4520-91D7-99C02F579B11}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
