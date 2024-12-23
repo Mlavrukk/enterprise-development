@@ -12,6 +12,6 @@ public class UniversityAdmissionTests
         var reques = (from applicant in _data.Applicants
                       where applicant.City == city
                       select applicant);
-        Assert.Equal(0, 0);
+        Assert.Equal(2, reques.Count());
     }
 }
