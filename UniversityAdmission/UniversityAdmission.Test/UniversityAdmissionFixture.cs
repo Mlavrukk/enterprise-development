@@ -1,6 +1,6 @@
 using UniversityAdmission.Domain.Class;
 namespace UniversityAdmission.Test;
-
+#РјРµРЅСЏСЋ РєРѕРґРёСЂРѕРІРєСѓ
 public class UniversityAdmissionFixture
 {
     public List<Applicant> Applicants {  get; set; }
@@ -16,42 +16,42 @@ public class UniversityAdmissionFixture
             new Applicant
             {
                 IdApplicant = 0,
-                FullName = "Васин Василий Васильевич",
+                FullName = "Р’Р°СЃРёРЅ Р’Р°СЃРёР»РёР№ Р’Р°СЃРёР»СЊРµРІРёС‡",
                 DateOfBirth = new DateOnly(2003,7,11),
-                Country  = "Россия",
-                City = "Самара"
+                Country  = "Р РѕСЃСЃРёСЏ",
+                City = "РЎР°РјР°СЂР°"
             },
             new Applicant
             {
                 IdApplicant = 1,
-                FullName = "Иван Иванов Иванович",
+                FullName = "РРІР°РЅ РРІР°РЅРѕРІ РРІР°РЅРѕРІРёС‡",
                 DateOfBirth = new DateOnly(2003,12,15),
-                Country  = "Россия",
-                City = "Самара"
+                Country  = "Р РѕСЃСЃРёСЏ",
+                City = "РЎР°РјР°СЂР°"
             },
             new Applicant
             {
                 IdApplicant = 2,
-                FullName = "Ле Лок Тхо",
+                FullName = "Р›Рµ Р›РѕРє РўС…Рѕ",
                 DateOfBirth = new DateOnly(2004,2,3),
-                Country  = "Вьетнам",
-                City = "Нячанг"
+                Country  = "Р’СЊРµС‚РЅР°Рј",
+                City = "РќСЏС‡Р°РЅРі"
             },
             new Applicant
             {
                 IdApplicant = 3,
-                FullName = "Стивен Парадез",
+                FullName = "РЎС‚РёРІРµРЅ РџР°СЂР°РґРµР·",
                 DateOfBirth = new DateOnly(2003,4,10),
-                Country  = "Испания",
-                City = "Барселона"
+                Country  = "РСЃРїР°РЅРёСЏ",
+                City = "Р‘Р°СЂСЃРµР»РѕРЅР°"
             },
             new Applicant
             {
                 IdApplicant = 4,
-                FullName = "Олег Монгол Викторович",
+                FullName = "РћР»РµРі РњРѕРЅРіРѕР» Р’РёРєС‚РѕСЂРѕРІРёС‡",
                 DateOfBirth = new DateOnly(2005,1,12),
-                Country  = "Россия",
-                City = "Орел"
+                Country  = "Р РѕСЃСЃРёСЏ",
+                City = "РћСЂРµР»"
             }
         ];
 
@@ -62,7 +62,7 @@ public class UniversityAdmissionFixture
             new Exam
             {
                 IdExam = 0,
-                Name = "Математика",
+                Name = "РњР°С‚РµРјР°С‚РёРєР°",
             }
         ];
 
@@ -85,8 +85,8 @@ public class UniversityAdmissionFixture
             {
                 IdSpecialty = 0,
                 Code = "10.05.03D",
-                Name = "Ибас",
-                Faculty = "ИИК"
+                Name = "РР±Р°СЃ",
+                Faculty = "РРРљ"
             }
         ];
     }
