@@ -8,7 +8,7 @@ namespace UniversityAdmission.Server.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class ApplicantController(IRepository<Applicant> repositoryApplicant, IRepository<ExamResult> repositoryExamResult, IRepository<Application> repositoryApplication, IMapper mapper) : Controller
+public class ApplicantController(IRepository<Applicant> repositoryApplicant, IRepository<ExamResult> repositoryExamResult, IRepository<Application> repositoryApplication, IMapper mapper) : ControllerBase
 {
     /// <summary>
     /// Получает список Абитуриентов из репозитория, в формате DtoGet

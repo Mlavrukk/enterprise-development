@@ -2,7 +2,7 @@
 /// <summary>
 /// Класс заявление Dto. 
 /// Соданный для передачи информации между слоями приложения 
-/// В нашем слуаче Dto совпадает с классом Application.
+/// В нашем случае Dto совпадает с классом Application.
 /// </summary>
 public class ApplicationDtoGet
 {

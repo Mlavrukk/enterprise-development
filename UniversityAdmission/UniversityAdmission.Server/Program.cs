@@ -3,6 +3,7 @@ using UniversityAdmission.Domain.Class;
 using UniversityAdmission.Domain;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
+using UniversityAdmission.Server.Servicies;
 var builder = WebApplication.CreateBuilder(args);
 
 
@@ -23,6 +24,7 @@ builder.Services.AddScoped<IRepository<ExamResult>, ExamResultRepository>();
 builder.Services.AddScoped<IRepository<Specialty>, SpecialtyRepository>();
 builder.Services.AddScoped<IRepository<Application>, ApplicationRepository>();
 
+builder.Services.AddTransient<IAnalayzerService, AnalayzerService>();
 
 builder.Services.AddAutoMapper(typeof(Mapper));
 

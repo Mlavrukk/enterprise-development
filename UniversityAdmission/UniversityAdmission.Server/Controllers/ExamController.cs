@@ -8,7 +8,7 @@ namespace UniversityAdmission.Server.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class ExamController(IRepository<Exam> repositoryExam, IRepository<ExamResult> repositoryExamResult, IMapper mapper) : Controller
+public class ExamController(IRepository<Exam> repositoryExam, IRepository<ExamResult> repositoryExamResult, IMapper mapper) : ControllerBase
 {
     /// <summary>
     /// Получает список Экзаменов из репозитория, в формате DtoGet
