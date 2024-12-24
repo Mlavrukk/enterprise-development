@@ -1,0 +1,1161 @@
+{
+    "openapi": "3.0.1",
+    "info": {
+        "title": "UniversityAdmission.Server",
+        "version": "1.0"
+    },
+    "paths": {
+        "/api/Applicant": {
+            "get": {
+                "tags": [
+                    "Applicant"
+                ],
+                "summary": "Получает список Абитуриентов из репозитория, в формате DtoGet",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/ApplicantDtoGet"
+                                    }
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/ApplicantDtoGet"
+                                    }
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/ApplicantDtoGet"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Applicant"
+                ],
+                "summary": "Добавляет Абитуриента в репозиторий",
+                "requestBody": {
+                    "description": "добавляемая сущность в формате Dto",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ApplicantDto"
+                            }
+                        },
+                        "text/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ApplicantDto"
+                            }
+                        },
+                        "application/*+json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ApplicantDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Applicant"
+                ],
+                "summary": "Удаляем Абитуриента по id. А так же удаляем зависимые сущности",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "",
+                        "schema": {
+                            "type": "integer",
+                            "format": "int32"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "204": {
+                        "description": "No Content"
+                    }
+                }
+            }
+        },
+        "/api/Applicant/{id}": {
+            "get": {
+                "tags": [
+                    "Applicant"
+                ],
+                "summary": "Получает Абитуриента из репозитория по id, в формате Dto",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int32"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApplicantDto"
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApplicantDto"
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApplicantDto"
+                                }
+                            }
+                        }
+                    },
+                    "204": {
+                        "description": "No Content"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Applicant"
+                ],
+                "summary": "Изменяем поля Абитуриента по id",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int32"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ApplicantDto"
+                            }
+                        },
+                        "text/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ApplicantDto"
+                            }
+                        },
+                        "application/*+json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ApplicantDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "204": {
+                        "description": "No Content"
+                    }
+                }
+            }
+        },
+        "/api/Application": {
+            "get": {
+                "tags": [
+                    "Application"
+                ],
+                "summary": "Получает список Заявлений из репозитория, в формате DtoGet",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/ApplicationDtoGet"
+                                    }
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/ApplicationDtoGet"
+                                    }
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/ApplicationDtoGet"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Application"
+                ],
+                "summary": "Добавляет Заявление в репозиторий",
+                "requestBody": {
+                    "description": "добавляемая сущность в формате Dto",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ApplicationDto"
+                            }
+                        },
+                        "text/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ApplicationDto"
+                            }
+                        },
+                        "application/*+json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ApplicationDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Application"
+                ],
+                "summary": "Удаляем Заявление по id.",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "",
+                        "schema": {
+                            "type": "integer",
+                            "format": "int32"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/api/Application/{id}": {
+            "get": {
+                "tags": [
+                    "Application"
+                ],
+                "summary": "Получает Заявление из репозитория по id, в формате Dto",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int32"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApplicationDto"
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApplicationDto"
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApplicationDto"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Application"
+                ],
+                "summary": "Изменяем поля Заявления по id",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int32"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ApplicationDto"
+                            }
+                        },
+                        "text/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ApplicationDto"
+                            }
+                        },
+                        "application/*+json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ApplicationDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/Exam": {
+            "get": {
+                "tags": [
+                    "Exam"
+                ],
+                "summary": "Получает список Экзаменов из репозитория, в формате DtoGet",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/ExamDtoGet"
+                                    }
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/ExamDtoGet"
+                                    }
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/ExamDtoGet"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Exam"
+                ],
+                "summary": "Добавляет Экзамен в репозиторий",
+                "requestBody": {
+                    "description": "добавляемая сущность в формате Dto",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ExamDto"
+                            }
+                        },
+                        "text/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ExamDto"
+                            }
+                        },
+                        "application/*+json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ExamDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Exam"
+                ],
+                "summary": "Удаляем Экзамен по id. А так же удаляем зависимые сущности",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "",
+                        "schema": {
+                            "type": "integer",
+                            "format": "int32"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "204": {
+                        "description": "No Content"
+                    }
+                }
+            }
+        },
+        "/Exam/{id}": {
+            "get": {
+                "tags": [
+                    "Exam"
+                ],
+                "summary": "Получает Экзамен из репозитория по id, в формате Dto",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int32"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ExamDto"
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ExamDto"
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ExamDto"
+                                }
+                            }
+                        }
+                    },
+                    "204": {
+                        "description": "No Content"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Exam"
+                ],
+                "summary": "Изменяем поля Экзамена по id",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int32"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ExamDto"
+                            }
+                        },
+                        "text/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ExamDto"
+                            }
+                        },
+                        "application/*+json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ExamDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "204": {
+                        "description": "No Content"
+                    }
+                }
+            }
+        },
+        "/api/ExamResult": {
+            "get": {
+                "tags": [
+                    "ExamResult"
+                ],
+                "summary": "Получает список Результатов за Экзамен из репозитория, в формате DtoGet",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/ExamResultDtoGet"
+                                    }
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/ExamResultDtoGet"
+                                    }
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/ExamResultDtoGet"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "ExamResult"
+                ],
+                "summary": "Добавляет Результат за Экзамен в репозиторий",
+                "requestBody": {
+                    "description": "добавляемая сущность в формате Dto",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ExamResultDto"
+                            }
+                        },
+                        "text/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ExamResultDto"
+                            }
+                        },
+                        "application/*+json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ExamResultDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "ExamResult"
+                ],
+                "summary": "Удаляем Результат за Экзамен по id.",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "",
+                        "schema": {
+                            "type": "integer",
+                            "format": "int32"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/api/ExamResult/{id}": {
+            "get": {
+                "tags": [
+                    "ExamResult"
+                ],
+                "summary": "Получает Результат за Экзамен из репозитория по id, в формате Dto",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int32"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ExamResultDto"
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ExamResultDto"
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ExamResultDto"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "ExamResult"
+                ],
+                "summary": "Изменяем поля Результата за Экзамен по id",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int32"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ExamResultDto"
+                            }
+                        },
+                        "text/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ExamResultDto"
+                            }
+                        },
+                        "application/*+json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ExamResultDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/api/Specialty": {
+            "get": {
+                "tags": [
+                    "Specialty"
+                ],
+                "summary": "Получает список Специальностей из репозитория, в формате DtoGet",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/SpecialtyDtoGet"
+                                    }
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/SpecialtyDtoGet"
+                                    }
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/SpecialtyDtoGet"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Specialty"
+                ],
+                "summary": "Добавляет Специальность в репозиторий",
+                "requestBody": {
+                    "description": "добавляемая сущность в формате Dto",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/SpecialtyDto"
+                            }
+                        },
+                        "text/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/SpecialtyDto"
+                            }
+                        },
+                        "application/*+json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/SpecialtyDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Specialty"
+                ],
+                "summary": "Удаляем Специальность по id. А так же удаляем зависимые сущности",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "",
+                        "schema": {
+                            "type": "integer",
+                            "format": "int32"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/api/Specialty/{id}": {
+            "get": {
+                "tags": [
+                    "Specialty"
+                ],
+                "summary": "Получает Специальность из репозитория по id, в формате Dto",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int32"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SpecialtyDto"
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SpecialtyDto"
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SpecialtyDto"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Specialty"
+                ],
+                "summary": "Изменяем поля Специльности по id",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int32"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/SpecialtyDto"
+                            }
+                        },
+                        "text/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/SpecialtyDto"
+                            }
+                        },
+                        "application/*+json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/SpecialtyDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "ApplicantDto": {
+                "required": [
+                    "city",
+                    "country",
+                    "dateOfBirth",
+                    "fullName"
+                ],
+                "type": "object",
+                "properties": {
+                    "fullName": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "dateOfBirth": {
+                        "type": "string",
+                        "format": "date"
+                    },
+                    "country": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "city": {
+                        "type": "string",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "ApplicantDtoGet": {
+                "required": [
+                    "city",
+                    "country",
+                    "dateOfBirth",
+                    "fullName",
+                    "idApplicant"
+                ],
+                "type": "object",
+                "properties": {
+                    "idApplicant": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "fullName": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "dateOfBirth": {
+                        "type": "string",
+                        "format": "date"
+                    },
+                    "country": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "city": {
+                        "type": "string",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "ApplicationDto": {
+                "required": [
+                    "applicantId",
+                    "priority",
+                    "specialtyId"
+                ],
+                "type": "object",
+                "properties": {
+                    "applicantId": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "specialtyId": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "priority": {
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                },
+                "additionalProperties": false
+            },
+            "ApplicationDtoGet": {
+                "required": [
+                    "applicantId",
+                    "idApplication",
+                    "priority",
+                    "specialtyId"
+                ],
+                "type": "object",
+                "properties": {
+                    "idApplication": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "applicantId": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "specialtyId": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "priority": {
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                },
+                "additionalProperties": false
+            },
+            "ExamDto": {
+                "required": [
+                    "name"
+                ],
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "ExamDtoGet": {
+                "required": [
+                    "id",
+                    "name"
+                ],
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "name": {
+                        "type": "string",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "ExamResultDto": {
+                "required": [
+                    "applicantId",
+                    "examId",
+                    "score"
+                ],
+                "type": "object",
+                "properties": {
+                    "applicantId": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "examId": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "score": {
+                        "type": "number",
+                        "format": "double"
+                    }
+                },
+                "additionalProperties": false
+            },
+            "ExamResultDtoGet": {
+                "required": [
+                    "applicantId",
+                    "examId",
+                    "idExamResult",
+                    "score"
+                ],
+                "type": "object",
+                "properties": {
+                    "idExamResult": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "applicantId": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "examId": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "score": {
+                        "type": "number",
+                        "format": "double"
+                    }
+                },
+                "additionalProperties": false
+            },
+            "SpecialtyDto": {
+                "required": [
+                    "code",
+                    "faculty",
+                    "name"
+                ],
+                "type": "object",
+                "properties": {
+                    "code": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "name": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "faculty": {
+                        "type": "string",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "SpecialtyDtoGet": {
+                "required": [
+                    "code",
+                    "faculty",
+                    "idSpecialty",
+                    "name"
+                ],
+                "type": "object",
+                "properties": {
+                    "idSpecialty": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "code": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "name": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "faculty": {
+                        "type": "string",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            }
+        }
+    }
+}

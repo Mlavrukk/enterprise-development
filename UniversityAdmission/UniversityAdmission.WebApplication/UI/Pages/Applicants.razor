@@ -1,0 +1,135 @@
+﻿@page "/applicants"
+@inject IApiWrapper client
+
+<h3>Applicants</h3>
+
+<button class="btn btn-primary" @onclick="ShowAddApplicantModal">Add applicant</button>
+
+<Table>
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>ФИО абитуриента</th>
+            <th>Дата рождения абитуриента</th>
+            <th>Страна абитуриента</th>
+            <th>Город абитуриента</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var applicant in ApplicantsList)
+        {
+            <tr>
+                <td>@applicant.IdApplicant</td>
+                <td>@applicant.FullName</td>
+                <td>@applicant.DateOfBirth</td>
+                <td>@applicant.Country</td>
+                <td>@applicant.City</td>
+                <td>
+                    <button class="btn btn-secondary" @onclick="() => ShowEditApplicantModal(applicant)">Edit</button>
+                    <button class="btn btn-danger" @onclick="() => DeleteApplicant(applicant.IdApplicant)">Delete</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</Table>
+
+<!-- Модальное окно для добавления/редактирования абитуриента -->
+<Modal @ref="modalRef" @onclose="HideModal" style="background-color:white">
+    <ModalHeader>
+        <h5>@ModalTitle</h5>
+    </ModalHeader>
+    <ModalBody>
+        <EditForm Model="@CurrentApplicant" OnValidSubmit="HandleSubmit">
+            <DataAnnotationsValidator />
+
+            <div class="form-group">
+                <label for="fullName">ФИО абитуриента</label>
+                <InputText id="fullName" class="form-control" @bind-Value="CurrentApplicant.FullName" />
+            </div>
+
+            <InputDate id="birthDate" class="form-control" @bind-Value="CurrentApplicant.DateOfBirth" />
+
+            <div class="form-group">
+                <label for="country">Страна абитуриента</label>
+                <InputText id="country" class="form-control" @bind-Value="CurrentApplicant.Country" />
+            </div>
+
+            <div class="form-group">
+                <label for="city">Город абитуриента</label>
+                <InputText id="city" class="form-control" @bind-Value="CurrentApplicant.City" />
+            </div>
+
+            <button type="submit" class="btn btn-primary">Save</button>
+            <button class="btn btn-secondary" @onclick="HideModal">Cancel</button>
+        </EditForm>
+    </ModalBody>
+</Modal>
+
+@code {
+    private IList<ApplicantDtoGet> ApplicantsList { get;set;} = [];
+    private ApplicantDto CurrentApplicant = new ApplicantDto();
+    private Modal? modalRef;
+    private string ModalTitle { get; set; } = "Add Applicant";
+    private bool IsDisabled => ModalTitle != "Add Applicant";
+    private int? EditingApplicantId { get; set; } = null;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadApplicants();
+    }
+
+    private async Task LoadApplicants()
+    {
+        ApplicantsList = (await client.GetApplicants()).ToList();
+    }
+
+    private void ShowAddApplicantModal()
+    {
+        ModalTitle = "Add Applicant";
+        CurrentApplicant = new ApplicantDto();
+        modalRef!.Show();
+    }
+
+    private void ShowEditApplicantModal(ApplicantDtoGet Applicant)
+    {
+        ModalTitle = "Edit Applicant";
+        CurrentApplicant = new ApplicantDto
+        { 
+                FullName = Applicant.FullName,
+                DateOfBirth = Applicant.DateOfBirth,
+                Country = Applicant.Country,
+                City = Applicant.City
+        };
+        EditingApplicantId = Applicant.IdApplicant;
+        modalRef!.Show();
+    }
+
+    private void HideModal()
+    {
+        modalRef!.Hide();
+    }
+
+    private async Task HandleSubmit()
+    {
+        if (CurrentApplicant is { City: null, Country: null, FullName: null })
+            return;
+
+        if (EditingApplicantId != null && ModalTitle == "Edit Applicant" && CurrentApplicant != null)
+        {
+            await client.UpdateApplicant(EditingApplicantId!.Value, CurrentApplicant);
+        }
+        else if (ModalTitle == "Add Applicant")
+        {
+            await client.AddApplicant(CurrentApplicant!);
+        }
+
+        HideModal();
+        await LoadApplicants();
+    }
+
+    private async Task DeleteApplicant(int id)
+    {
+        await client.DeleteApplicant(id);
+        await LoadApplicants();
+    }
+}

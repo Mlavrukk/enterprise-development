@@ -28,6 +28,9 @@ builder.Services.AddScoped<IRepository<Application>, ApplicationRepository>();
 
 builder.Services.AddAutoMapper(typeof(Mapper));
 
+builder.Services.AddCors(options => options.AddDefaultPolicy(policy => { policy.AllowAnyOrigin(); policy.AllowAnyMethod(); policy.AllowAnyHeader(); }));
+
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -36,6 +39,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseCors();
 
 app.MapControllers();
 

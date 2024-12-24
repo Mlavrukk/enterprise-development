@@ -15,6 +15,7 @@ public class ApplicantController(IRepository<Applicant> repositoryApplicant, IRe
     /// </summary>
     /// <returns></returns>
     [HttpGet]
+    [ProducesResponseType(200)]
     public async Task<ActionResult<IEnumerable<ApplicantDtoGet>>> Get()
     {
         return Ok(mapper.Map<IEnumerable<ApplicantDtoGet>>(await repositoryApplicant.GetAll()));
@@ -26,6 +27,8 @@ public class ApplicantController(IRepository<Applicant> repositoryApplicant, IRe
     /// <param name="id"></param>
     /// <returns></returns>
     [HttpGet("{id}")]
+    [ProducesResponseType(200)]
+    [ProducesResponseType(204)]
     public async Task<ActionResult<ApplicantDto>> Get(int id)
     {
         var applicant = await repositoryApplicant.GetById(id);
@@ -40,6 +43,7 @@ public class ApplicantController(IRepository<Applicant> repositoryApplicant, IRe
     /// <param name="entity">добавляемая сущность в формате Dto</param>
     /// <returns></returns>
     [HttpPost]
+    [ProducesResponseType(200)]
     public async Task<IActionResult> Post([FromBody] ApplicantDto entity)
     {
         await repositoryApplicant.Post(mapper.Map<Applicant>(entity));
@@ -53,6 +57,8 @@ public class ApplicantController(IRepository<Applicant> repositoryApplicant, IRe
     /// <param name="entity"></param>
     /// <returns></returns>
     [HttpPut("{id}")]
+    [ProducesResponseType(200)]
+    [ProducesResponseType(204)]
     public async Task<IActionResult> Put(int id, [FromBody] ApplicantDto entity)
     {
         if (await repositoryApplicant.Put(id, mapper.Map<Applicant>(entity)))
@@ -66,6 +72,8 @@ public class ApplicantController(IRepository<Applicant> repositoryApplicant, IRe
     /// <param name="id"></param>
     /// <returns></returns>
     [HttpDelete]
+    [ProducesResponseType(200)]
+    [ProducesResponseType(204)]
     public async Task<IActionResult> Delete(int id)
     {
         if (await repositoryApplicant.Delete(id))

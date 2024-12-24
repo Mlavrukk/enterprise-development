@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversityAdmission.Test", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversityAdmission.Server", "UniversityAdmission.Server\UniversityAdmission.Server.csproj", "{C87A76FA-AB6A-4520-91D7-99C02F579B11}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniversityAdmission.WebApplication", "UniversityAdmission.WebApplication\UniversityAdmission.WebApplication.csproj", "{4A5BC0F1-EF42-45A7-9314-8FDCB84E881F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{C87A76FA-AB6A-4520-91D7-99C02F579B11}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C87A76FA-AB6A-4520-91D7-99C02F579B11}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C87A76FA-AB6A-4520-91D7-99C02F579B11}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4A5BC0F1-EF42-45A7-9314-8FDCB84E881F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A5BC0F1-EF42-45A7-9314-8FDCB84E881F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A5BC0F1-EF42-45A7-9314-8FDCB84E881F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A5BC0F1-EF42-45A7-9314-8FDCB84E881F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

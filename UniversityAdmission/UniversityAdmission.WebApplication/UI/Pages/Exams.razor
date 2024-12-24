@@ -1,0 +1,114 @@
+﻿@page "/exams"
+@inject IApiWrapper client
+
+<h3>Exams</h3>
+
+<button class="btn btn-primary" @onclick="ShowAddExamModal">Add Exam</button>
+
+<Table>
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Название предмета</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var exam in ExamsList)
+        {
+            <tr>
+                <td>@exam.Id</td>
+                <td>@exam.Name</td>
+                <td>
+                    <button class="btn btn-secondary" @onclick="() => ShowEditExamModal(exam)">Edit</button>
+                    <button class="btn btn-danger" @onclick="() => DeleteExam(exam.Id)">Delete</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</Table>
+
+<!-- Модальное окно для добавления/редактирования абитуриента -->
+<Modal @ref="modalRef" @onclose="HideModal" style="background-color:white">
+    <ModalHeader>
+        <h5>@ModalTitle</h5>
+    </ModalHeader>
+    <ModalBody>
+        <EditForm Model="@CurrentExam" OnValidSubmit="HandleSubmit">
+            <DataAnnotationsValidator />
+
+            <div class="form-group">
+                <label for="name">Название предмета</label>
+                <InputText id="name" class="form-control" @bind-Value="CurrentExam.Name" />
+            </div>
+
+            <button type="submit" class="btn btn-primary">Save</button>
+            <button class="btn btn-secondary" @onclick="HideModal">Cancel</button>
+        </EditForm>
+    </ModalBody>
+</Modal>
+
+@code {
+    private IList<ExamDtoGet> ExamsList { get; set; } = [];
+    private ExamDto CurrentExam = new ExamDto();
+    private Modal? modalRef;
+    private string ModalTitle { get; set; } = "Add Exam";
+    private bool IsDisabled => ModalTitle != "Add Exam";
+    private int? EditingExamId { get; set; } = null;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadExams();
+    }
+
+    private async Task LoadExams()
+    {
+        ExamsList = (await client.GetExams()).ToList();
+    }
+
+    private void ShowAddExamModal()
+    {
+        ModalTitle = "Add Exam";
+        CurrentExam = new ExamDto();
+        modalRef!.Show();
+    }
+
+    private void ShowEditExamModal(ExamDtoGet Exam)
+    {
+        ModalTitle = "Edit Exam";
+        CurrentExam = new ExamDto
+            {
+                Name = Exam.Name
+            };
+        EditingExamId = Exam.Id;
+        modalRef!.Show();
+    }
+
+    private void HideModal()
+    {
+        modalRef!.Hide();
+    }
+
+    private async Task HandleSubmit()
+    {
+        if (CurrentExam is { Name: null })
+            return;
+
+        if (EditingExamId != null && ModalTitle == "Edit Exam" && CurrentExam != null)
+        {
+            await client.UpdateExam(EditingExamId!.Value, CurrentExam);
+        }
+        else if (ModalTitle == "Add Exam")
+        {
+            await client.AddExam(CurrentExam!);
+        }
+
+        HideModal();
+        await LoadExams();
+    }
+
+    private async Task DeleteExam(int id)
+    {
+        await client.DeleteExam(id);
+        await LoadExams();
+    }
+}

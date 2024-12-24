@@ -15,6 +15,7 @@ public class ExamController(IRepository<Exam> repositoryExam, IRepository<ExamRe
     /// </summary>
     /// <returns></returns>
     [HttpGet]
+    [ProducesResponseType(200)]
     public async Task<ActionResult<IEnumerable<ExamDtoGet>>> Get()
     {
         return Ok(mapper.Map<IEnumerable<ExamDtoGet>>(await repositoryExam.GetAll()));
@@ -26,6 +27,8 @@ public class ExamController(IRepository<Exam> repositoryExam, IRepository<ExamRe
     /// <param name="id"></param>
     /// <returns></returns>
     [HttpGet("{id}")]
+    [ProducesResponseType(200)]
+    [ProducesResponseType(204)]
     public async Task<ActionResult<ExamDto>> Get(int id)
     {
         var exam = await repositoryExam.GetById(id);
@@ -40,6 +43,7 @@ public class ExamController(IRepository<Exam> repositoryExam, IRepository<ExamRe
     /// <param name="entity">добавляемая сущность в формате Dto</param>
     /// <returns></returns>
     [HttpPost]
+    [ProducesResponseType(200)]
     public async Task<IActionResult> Post([FromBody] ExamDto entity)
     {
         await repositoryExam.Post(mapper.Map<Exam>(entity));
@@ -53,6 +57,8 @@ public class ExamController(IRepository<Exam> repositoryExam, IRepository<ExamRe
     /// <param name="entity"></param>
     /// <returns></returns>
     [HttpPut("{id}")]
+    [ProducesResponseType(200)]
+    [ProducesResponseType(204)]
     public async Task<IActionResult> Put(int id, [FromBody] ExamDto entity)
     {
         if (await repositoryExam.Put(id, mapper.Map<Exam>(entity)))
@@ -66,6 +72,8 @@ public class ExamController(IRepository<Exam> repositoryExam, IRepository<ExamRe
     /// <param name="id"></param>
     /// <returns></returns>
     [HttpDelete]
+    [ProducesResponseType(200)]
+    [ProducesResponseType(204)]
     public async Task<IActionResult> Delete(int id)
     {
         if (await repositoryExam.Delete(id))
