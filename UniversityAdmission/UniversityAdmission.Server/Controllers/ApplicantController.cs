@@ -37,14 +37,13 @@ public class ApplicantController(IRepository<Applicant> repositoryApplicant, IMa
     }
 
     [HttpDelete]
-    public IActionResult Delete(int id) {
-        
+    public IActionResult Delete(int id) 
+    {
 
         // прописать удаление ExamResult 
         // Application
         if(repositoryApplicant.Delete(id))
             return Ok();
         return NotFound();
-
     }
 }
