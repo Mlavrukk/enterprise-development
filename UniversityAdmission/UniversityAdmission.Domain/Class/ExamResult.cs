@@ -1,27 +1,27 @@
 namespace UniversityAdmission.Domain.Class;
 
 /// <summary>
-/// Результат экзамена абитуриента
+/// Р РµР·СѓР»СЊС‚Р°С‚ СЌРєР·Р°РјРµРЅР° Р°Р±РёС‚СѓСЂРёРµРЅС‚Р°
 /// </summary>
 public class ExamResult
 {
     /// <summary>
-    /// Идентификатор результата
+    /// РРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ СЂРµР·СѓР»СЊС‚Р°С‚Р°
     /// </summary>
     public required int IdExamResult { get; set; }
 
     /// <summary>
-    /// Идентификатор абитуриента
+    /// РРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ Р°Р±РёС‚СѓСЂРёРµРЅС‚Р°
     /// </summary>
     public required int ApplicantId { get; set; }
 
     /// <summary>
-    /// Идентификатор экзамена
+    /// РРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ СЌРєР·Р°РјРµРЅР°
     /// </summary>
     public required int ExamId  { get; set; }
 
     /// <summary>
-    /// Баллы абитуриента на экзамене
+    /// Р‘Р°Р»Р»С‹ Р°Р±РёС‚СѓСЂРёРµРЅС‚Р° РЅР° СЌРєР·Р°РјРµРЅРµ
     /// </summary>
     public required double Score { get; set; }
 }

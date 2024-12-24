@@ -1,32 +1,32 @@
 namespace UniversityAdmission.Domain.Class;
 
 /// <summary>
-/// Абитуриент
-/// </summary>]
+/// РђР±РёС‚СѓСЂРёРµРЅС‚
+/// </summary>
 public class Applicant
 {
     /// <summary>
-    /// Идентификатор абитуриента
+    /// РРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ Р°Р±РёС‚СѓСЂРёРµРЅС‚Р°
     /// </summary>
     public required int IdApplicant { get; set; }
 
     /// <summary>
-    /// ФИО абитуриента
+    /// Р¤РРћ Р°Р±РёС‚СѓСЂРёРµРЅС‚Р°
     /// </summary>
     public required string FullName { get; set; }
 
     /// <summary>
-    /// Дата рождения абитуриента
+    /// Р”Р°С‚Р° СЂРѕР¶РґРµРЅРёСЏ Р°Р±РёС‚СѓСЂРёРµРЅС‚Р°
     /// </summary>
     public required DateOnly DateOfBirth { get; set; }
 
     /// <summary>
-    /// Страна абитуриента
+    /// РЎС‚СЂР°РЅР° Р°Р±РёС‚СѓСЂРёРµРЅС‚Р°
     /// </summary>
     public required string Country { get; set; }
 
     /// <summary>
-    /// Город абитуриента
+    /// Р“РѕСЂРѕРґ Р°Р±РёС‚СѓСЂРёРµРЅС‚Р°
     /// </summary>
     public required string City { get; set; }
 }

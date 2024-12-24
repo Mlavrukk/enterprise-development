@@ -1,17 +1,17 @@
 namespace UniversityAdmission.Domain.Class;
 
 /// <summary>
-/// Экзамен
+/// Р­РєР·Р°РјРµРЅ
 /// </summary>
 public class Exam
 {
     /// <summary>
-    /// Идентификатор экзамена
+    /// РРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ СЌРєР·Р°РјРµРЅР°
     /// </summary>
     public required int IdExam { get; set; }
 
     /// <summary>
-    /// Название экзамена
+    /// РќР°Р·РІР°РЅРёРµ СЌРєР·Р°РјРµРЅР°
     /// </summary>
     public required string Name { get; set; }
 }

@@ -1,26 +1,26 @@
 namespace UniversityAdmission.Domain.Class;
 
 /// <summary>
-/// Специальность
+/// РЎРїРµС†РёР°Р»СЊРЅРѕСЃС‚СЊ
 /// </summary>
 public class Specialty
 {
     /// <summary>
-    /// Идентификатор специальности
+    /// РРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ СЃРїРµС†РёР°Р»СЊРЅРѕСЃС‚Рё
     /// </summary>
     public required int IdSpecialty { get; set; }
     /// <summary>
-    /// Шифр специальности
+    /// РЁРёС„СЂ СЃРїРµС†РёР°Р»СЊРЅРѕСЃС‚Рё
     /// </summary>
     public required string Code { get; set; }
 
     /// <summary>
-    /// Название специальности
+    /// РќР°Р·РІР°РЅРёРµ СЃРїРµС†РёР°Р»СЊРЅРѕСЃС‚Рё
     /// </summary>
     public required string Name { get; set; }
 
     /// <summary>
-    /// Факультет
+    /// Р¤Р°РєСѓР»СЊС‚РµС‚
     /// </summary>
     public required string Faculty { get; set; }
 }
