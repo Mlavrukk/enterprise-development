@@ -8,11 +8,11 @@ namespace UniversityAdmission.Server.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class ApplicantController(IRepository<Applicant> repositoryApplicant, IMapper mapper) : Controller
+public class ApplicantController(IRepository<Applicant> repositoryApplicant, IRepository<ExamResult> repositoryExamResult, IRepository<Application> repositoryApplication, IMapper mapper) : Controller
 {
     [HttpGet]
-    public ActionResult<IEnumerable<ApplicantDtoGet>> Get() 
-    {   
+    public ActionResult<IEnumerable<ApplicantDtoGet>> Get()
+    {
         return Ok(mapper.Map<IEnumerable<ApplicantDtoGet>>(repositoryApplicant.GetAll()));
     }
     [HttpGet("{id}")]
@@ -29,7 +29,7 @@ public class ApplicantController(IRepository<Applicant> repositoryApplicant, IMa
         return Ok();
     }
     [HttpPut("{id}")]
-    public IActionResult Put(int id, [FromBody] ApplicantDto entity) 
+    public IActionResult Put(int id, [FromBody] ApplicantDto entity)
     {
         if (repositoryApplicant.Put(id, mapper.Map<Applicant>(entity)))
             return Ok();
@@ -37,12 +37,17 @@ public class ApplicantController(IRepository<Applicant> repositoryApplicant, IMa
     }
 
     [HttpDelete]
-    public IActionResult Delete(int id) 
+    public IActionResult Delete(int id)
     {
-
-        // прописать удаление ExamResult 
-        // Application
-        if(repositoryApplicant.Delete(id))
+        repositoryExamResult.GetAll()
+            .Where(e => e.ApplicantId == id)
+            .ToList()
+            .ForEach(e => repositoryExamResult.Delete(e.IdExamResult));
+        repositoryApplication.GetAll()
+            .Where(a => a.ApplicantId == id)
+            .ToList()
+            .ForEach(a=> repositoryApplication.Delete(a.IdApplication));
+        if (repositoryApplicant.Delete(id))
             return Ok();
         return NotFound();
     }

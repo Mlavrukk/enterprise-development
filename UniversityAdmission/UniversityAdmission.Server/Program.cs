@@ -1,14 +1,18 @@
 using UniversityAdmission.Domain.Repositories;
 using UniversityAdmission.Domain.Class;
 using UniversityAdmission.Domain;
-
+using System.Reflection;
 var builder = WebApplication.CreateBuilder(args);
 
 
 builder.Services.AddControllers();
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(option => 
+        {
+            var xmlFileName = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+            option.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFileName));
+        });
 
 
 builder.Services.AddSingleton<IRepository<Applicant>, ApplicantRepository>();

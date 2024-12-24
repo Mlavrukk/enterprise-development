@@ -8,7 +8,7 @@ namespace UniversityAdmission.Server.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class SpecialtyController(IRepository<Specialty> repositorySpecialty, IMapper mapper) : Controller
+public class SpecialtyController(IRepository<Specialty> repositorySpecialty, IRepository<Application> repositoryApplication, IMapper mapper) : Controller
 {
     [HttpGet]
     public ActionResult<IEnumerable<SpecialtyDtoGet>> Get()
@@ -39,7 +39,10 @@ public class SpecialtyController(IRepository<Specialty> repositorySpecialty, IMa
     [HttpDelete]
     public IActionResult Delete(int id)
     {
-        // прописать удаление Application
+        repositoryApplication.GetAll()
+            .Where(a => a.SpecialtyId == id)
+            .ToList()
+            .ForEach(a => repositoryApplication.Delete(a.IdApplication));
         if (repositorySpecialty.Delete(id))
             return Ok();
         return NotFound();
