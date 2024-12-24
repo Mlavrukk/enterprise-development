@@ -1,5 +1,6 @@
 ﻿using UniversityAdmission.Domain.Class;
 using UniversityAdmission.Domain.Dto;
+using UniversityAdmission.Domain.Dto.DtoForRequest;
 using UniversityAdmission.Domain.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,7 +8,7 @@ namespace UniversityAdmission.Server.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class RequestController(IRepository<Applicant> repositoryApplicant, IRepository<Exam> repositoryExam, IRepository<ExamResult> repositoryExamResult, IRepository<Specialty> repositorySpecialty, IRepository<Application> repositoryApplication) : Controller
+public class RequestController(IRepository<Applicant> repositoryApplicant, IRepository<ExamResult> repositoryExamResult, IRepository<Specialty> repositorySpecialty, IRepository<Application> repositoryApplication) : Controller
 {
     /// <summary>
     /// Вывести информацию об абитуриентах из указанного города.
@@ -45,11 +46,7 @@ public class RequestController(IRepository<Applicant> repositoryApplicant, IRepo
             .OrderBy(applicant => applicant.FullName);
         return Ok(request);
     }
-    public class ApplicantDtoWithExamResult
-    {
-        public Applicant Applicant { get; set; }
-        public double SumExamResult { get; set; }
-    }
+
     /// <summary>
     /// Выводит информацию об абитуриентах, поступающих на указанную
     /// специальность(без учета приоритета), упорядочить по сумме баллов за
@@ -79,12 +76,6 @@ public class RequestController(IRepository<Applicant> repositoryApplicant, IRepo
         return Ok(request);
     }
 
-    public class ApplicantCountForSpecialityDto
-    {
-        public int SpecialtyId { get; set; }
-        public int ApplicantCount { get; set; }
-    }
-
     /// <summary>
     /// Вывести информацию о количестве абитуриентов, поступающих на каждую
     /// специальность по первому приоритету.
@@ -105,11 +96,6 @@ public class RequestController(IRepository<Applicant> repositoryApplicant, IRepo
         return Ok(request);
     }
 
-    public class TopFiveApplicantDto()
-    {
-        public Applicant Applicant { get; set; }
-        public double TotalScore { get; set; }
-    }
     /// <summary>
     /// Вывести информацию о топ 5 абитуриентах, набравших наибольшее число
     /// баллов за три предмета.
@@ -131,14 +117,6 @@ public class RequestController(IRepository<Applicant> repositoryApplicant, IRepo
                        .Take(5)
                        .ToList();
         return Ok(request);
-    }
-
-
-    public class ApplicantWithMaxScoreWithSpecialty
-    {
-        public Applicant Applicant { get; set; }
-        public double MaxScore { get; set; }
-        public int SpecialtyId { get; set; }
     }
 
     /// <summary>
