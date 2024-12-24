@@ -2,6 +2,7 @@ using UniversityAdmission.Domain.Repositories;
 using UniversityAdmission.Domain.Class;
 using UniversityAdmission.Domain;
 using System.Reflection;
+using UniversityAdmission.Server.Servicies;
 var builder = WebApplication.CreateBuilder(args);
 
 
@@ -21,6 +22,7 @@ builder.Services.AddSingleton<IRepository<ExamResult>, ExamResultRepository>();
 builder.Services.AddSingleton<IRepository<Specialty>, SpecialtyRepository>();
 builder.Services.AddSingleton<IRepository<Application>, ApplicationRepository>();
 
+builder.Services.AddTransient<IAnalayzerService, AnalayzerService>();
 
 builder.Services.AddAutoMapper(typeof(Mapper));
 
