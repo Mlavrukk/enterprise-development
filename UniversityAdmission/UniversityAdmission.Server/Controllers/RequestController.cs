@@ -82,12 +82,97 @@ public class RequestController(IRepository<Applicant> repositoryApplicant, IRepo
     public class ApplicantCountForSpecialityDto
     {
         public int SpecialtyId { get; set; }
-        public string Code { get; set; }
         public int ApplicantCount { get; set; }
     }
 
-    
+    /// <summary>
+    /// Вывести информацию о количестве абитуриентов, поступающих на каждую
+    /// специальность по первому приоритету.
+    /// </summary>
+    [HttpGet("applicant-count-by-speciality")]
+    public ActionResult<IEnumerable<ApplicantCountForSpecialityDto>> GetCountApplicantToSpecialty()
+    {
+        var request = (from application in repositoryApplication.GetAll()
+                       join specialty in repositorySpecialty.GetAll() on application.SpecialtyId equals specialty.IdSpecialty
+                       where application.Priority == 0
+                       group application by specialty.IdSpecialty into specialtyGroup
+                       select new ApplicantCountForSpecialityDto
+                       {
+                           SpecialtyId = specialtyGroup.Key,
+                           ApplicantCount = specialtyGroup.Count()
+                       })
+                       .ToList();
+        return Ok(request);
+    }
 
+    public class TopFiveApplicantDto()
+    {
+        public Applicant Applicant { get; set; }
+        public double TotalScore { get; set; }
+    }
+    /// <summary>
+    /// Вывести информацию о топ 5 абитуриентах, набравших наибольшее число
+    /// баллов за три предмета.
+    /// </summary>
+    /// <returns></returns>
+    [HttpGet("top-five-applicant-by-score")]
+    public ActionResult<IEnumerable<TopFiveApplicantDto>> GetTopFiveApplicantToScore()
+    {
+        var request = (from examResult in repositoryExamResult.GetAll()
+                       join applicant in repositoryApplicant.GetAll() on examResult.ApplicantId equals applicant.IdApplicant
+                       group examResult by applicant into applicantGroup
+                       let totalScore = applicantGroup.Sum(result => result.Score)
+                       orderby totalScore descending
+                       select new TopFiveApplicantDto
+                       {
+                           Applicant = applicantGroup.Key,
+                           TotalScore = totalScore
+                       })
+                       .Take(5)
+                       .ToList();
+        return Ok(request);
+    }
+
+
+    public class ApplicantWithMaxScoreWithSpecialty
+    {
+        public Applicant Applicant { get; set; }
+        public double MaxScore { get; set; }
+        public int SpecialtyId { get; set; }
+    }
+
+    /// <summary>
+    /// Вывести информацию об абитуриентах(и их приоритетных
+    /// специальностях), которые набрали максимальный балл по каждому из
+    /// предметов.
+    /// </summary>
+    /// <returns></returns>
+    [HttpGet("get-applicant-specialty-max-score")]
+    public ActionResult<IEnumerable<ApplicantWithMaxScoreWithSpecialty>> GetApplicantAndSpecialtyMaxScore()
+    {
+        var request = (from examResult in repositoryExamResult.GetAll()
+                       join applicant in repositoryApplicant.GetAll() on examResult.ApplicantId equals applicant.IdApplicant
+                       join application in repositoryApplication.GetAll() on applicant.IdApplicant equals application.ApplicantId
+                       join specialty in repositorySpecialty.GetAll() on application.SpecialtyId equals specialty.IdSpecialty
+                       group examResult by examResult.ExamId into examGroup
+                       let maxScore = examGroup.Max(result => result.Score)
+                       select new ApplicantWithMaxScoreWithSpecialty
+                       {
+                           Applicant = (from result in examGroup
+                                        where result.Score == maxScore
+                                        join applicant in repositoryApplicant.GetAll() on result.ApplicantId equals applicant.IdApplicant
+                                        select applicant).FirstOrDefault(),
+                           MaxScore = maxScore,
+                           SpecialtyId = (from result in examGroup
+                                          where result.Score == maxScore
+                                          join applicant in repositoryApplicant.GetAll() on result.ApplicantId equals applicant.IdApplicant
+                                          join application in repositoryApplication.GetAll() on applicant.IdApplicant equals application.ApplicantId
+                                          select application.SpecialtyId).FirstOrDefault()
+                       })
+                       .ToList();
+
+        return Ok(request);
+    }
 
 
 }
