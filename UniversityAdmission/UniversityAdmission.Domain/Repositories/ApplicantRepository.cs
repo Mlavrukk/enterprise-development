@@ -1,41 +1,41 @@
 ﻿using UniversityAdmission.Domain.Class;
-
+using UniversityAdmission.Domain;
+using Microsoft.EntityFrameworkCore;
 namespace UniversityAdmission.Domain.Repositories;
 
-public class ApplicantRepository : IRepository<Applicant>
+public class ApplicantRepository(UniversityAdmissionContext context) : IRepository<Applicant>
 {
-    private int _id = 0;
-    private List<Applicant> _applicants = [];
-
-    public bool Delete(int id)
+    public async Task<bool> Delete(int id)
     {
-        var applicant = GetById(id);
-        if (applicant == null)
+        var applicant = await GetById(id);
+        if(applicant == null)
             return false;
-        _applicants.Remove(applicant);
+        context.Applicants.Remove(applicant);
+        await context.SaveChangesAsync();
         return true;
     }
 
-    public IEnumerable<Applicant> GetAll() => _applicants;
+    public async Task<List<Applicant>> GetAll() => await context.Applicants.ToListAsync();
 
-    public Applicant? GetById(int id) => _applicants.Find(a => a.IdApplicant == id);
+    public async Task<Applicant?> GetById(int id) => await context.Applicants.FirstOrDefaultAsync(a => a.IdApplicant == id);
 
-    public Applicant Post(Applicant entity)
+    public async Task<Applicant> Post(Applicant entity)
     {
-        entity.IdApplicant = _id++;
-        _applicants.Add(entity);
+        await context.Applicants.AddAsync(entity);
+        await context.SaveChangesAsync();
         return entity;
     }
 
-    public bool Put(int id, Applicant newEntity)
+    public async Task<bool> Put(int id, Applicant newEntity)
     {
-        var oldEntity = GetById(id);
+        var oldEntity = await GetById(id);
         if (oldEntity == null)
             return false;
         oldEntity.DateOfBirth = newEntity.DateOfBirth;
         oldEntity.FullName = newEntity.FullName;
         oldEntity.Country = newEntity.Country;
         oldEntity.City = newEntity.City;
+        await context.SaveChangesAsync();
         return true;
     }
 }

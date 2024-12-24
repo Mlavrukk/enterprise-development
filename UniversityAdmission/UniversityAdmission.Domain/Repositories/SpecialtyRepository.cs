@@ -1,40 +1,40 @@
-﻿using UniversityAdmission.Domain.Class;
+﻿using Microsoft.EntityFrameworkCore;
+using UniversityAdmission.Domain.Class;
 
 namespace UniversityAdmission.Domain.Repositories;
 
-public class SpecialtyRepository : IRepository<Specialty>
+public class SpecialtyRepository(UniversityAdmissionContext context) : IRepository<Specialty>
 {
-    private int _id = 0;
-    private List<Specialty> _specialtys = [];
-
-    public bool Delete(int id)
+    public async Task<bool> Delete(int id)
     {
-        var specialty = GetById(id);
+        var specialty = await GetById(id);
         if (specialty == null)
             return false;
-        _specialtys.Remove(specialty);
+        context.Specialties.Remove(specialty);
+        await context.SaveChangesAsync();
         return true;
     }
 
-    public IEnumerable<Specialty> GetAll() => _specialtys;
+    public async Task<List<Specialty>> GetAll() => await context.Specialties.ToListAsync();
 
-    public Specialty? GetById(int id) => _specialtys.Find(a => a.IdSpecialty == id);
+    public async Task<Specialty?> GetById(int id) => await context.Specialties.FirstOrDefaultAsync(a => a.IdSpecialty == id);
 
-    public Specialty Post(Specialty entity)
+    public async Task<Specialty> Post(Specialty entity)
     {
-        entity.IdSpecialty = _id++;
-        _specialtys.Add(entity);
+        await context.Specialties.AddAsync(entity);
+        await context.SaveChangesAsync();
         return entity;
     }
 
-    public bool Put(int id, Specialty newEntity)
+    public async Task<bool> Put(int id, Specialty newEntity)
     {
-        var oldEntity = GetById(id);
+        var oldEntity = await GetById(id);
         if (oldEntity == null)
             return false;
         oldEntity.Code = newEntity.Code;
-        oldEntity.Name = newEntity.Name;
+        oldEntity.Name = newEntity.Name;    
         oldEntity.Faculty = newEntity.Faculty;
+        await context.SaveChangesAsync();
         return true;
     }
 }

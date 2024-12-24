@@ -1,40 +1,40 @@
-﻿using UniversityAdmission.Domain.Class;
+﻿using Microsoft.EntityFrameworkCore;
+using UniversityAdmission.Domain.Class;
 
 namespace UniversityAdmission.Domain.Repositories;
 
-public class ApplicationRepository : IRepository<Application>
+public class ApplicationRepository(UniversityAdmissionContext context) : IRepository<Application>
 {
-    private int _id = 0;
-    private List<Application> _applications = [];
-
-    public bool Delete(int id)
+    public async Task<bool> Delete(int id)
     {
-        var exam = GetById(id);
-        if (exam == null)
+        var application = await GetById(id);
+        if (application == null)
             return false;
-        _applications.Remove(exam);
+        context.Applications.Remove(application);
+        await context.SaveChangesAsync();
         return true;
     }
 
-    public IEnumerable<Application> GetAll() => _applications;
+    public async Task<List<Application>> GetAll() => await context.Applications.ToListAsync();
 
-    public Application? GetById(int id) => _applications.Find(e => e.IdApplication == id);
+    public async Task<Application?> GetById(int id) => await context.Applications.FirstOrDefaultAsync(a => a.i == id);
 
-    public Application Post(Application entity)
+    public async Task<Application> Post(Application entity)
     {
-        entity.IdApplication = _id++;
-        _applications.Add(entity);
+        await context.Applications.AddAsync(entity);
+        await context.SaveChangesAsync();
         return entity;
     }
 
-    public bool Put(int id, Application newEntity)
+    public async Task<bool> Put(int id, Application newEntity)
     {
-        var oldEntity = GetById(id);
+        var oldEntity = await GetById(id);
         if (oldEntity == null)
             return false;
+        oldEntity.Priority = newEntity.Priority;
         oldEntity.ApplicantId = newEntity.ApplicantId;
         oldEntity.SpecialtyId = newEntity.SpecialtyId;
-        oldEntity.Priority = newEntity.Priority;
+        await context.SaveChangesAsync();
         return true;
     }
 }

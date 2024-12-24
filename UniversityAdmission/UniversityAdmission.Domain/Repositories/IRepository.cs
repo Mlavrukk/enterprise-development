@@ -1,9 +1,9 @@
 ﻿namespace UniversityAdmission.Domain.Repositories;
 public interface IRepository<T>
 {
-    public IEnumerable<T> GetAll();
-    public T? GetById(int id);
-    public T Post(T entity);
-    public bool Put(int id, T entity);
-    public bool Delete(int id);
+    public Task<List<T>> GetAll();
+    public Task<T>? GetById(int id);
+    public Task<T> Post(T entity);
+    public Task<bool> Put(int id, T entity);
+    public Task<bool> Delete(int id);
 }

@@ -1,40 +1,40 @@
-﻿using UniversityAdmission.Domain.Class;
+﻿using Microsoft.EntityFrameworkCore;
+using UniversityAdmission.Domain.Class;
 
 namespace UniversityAdmission.Domain.Repositories;
 
-public class ExamResultRepository : IRepository<ExamResult>
+public class ExamResultRepository(UniversityAdmissionContext context) : IRepository<ExamResult>
 {
-    private int _id = 0;
-    private List<ExamResult> _examResults = [];
-
-    public bool Delete(int id)
+    public async Task<bool> Delete(int id)
     {
-        var examResult = GetById(id);
+        var examResult = await GetById(id);
         if (examResult == null)
             return false;
-        _examResults.Remove(examResult);
+        context.ExamResults.Remove(examResult);
+        await context.SaveChangesAsync();
         return true;
     }
 
-    public IEnumerable<ExamResult> GetAll() => _examResults;
+    public async Task<List<ExamResult>> GetAll() => await context.ExamResults.ToListAsync();
 
-    public ExamResult? GetById(int id) => _examResults.Find(e => e.IdExamResult == id);
+    public async Task<ExamResult?> GetById(int id) => await context.ExamResults.FirstOrDefaultAsync(e => e.IdExamResult == id);
 
-    public ExamResult Post(ExamResult entity)
+    public async Task<ExamResult> Post(ExamResult entity)
     {
-        entity.IdExamResult = _id++;
-        _examResults.Add(entity);
+        await context.ExamResults.AddAsync(entity);
+        await context.SaveChangesAsync();
         return entity;
     }
 
-    public bool Put(int id, ExamResult newEntity)
+    public async Task<bool> Put(int id, ExamResult newEntity)
     {
-        var oldEntity = GetById(id);
+        var oldEntity = await GetById(id);
         if (oldEntity == null)
             return false;
         oldEntity.ApplicantId = newEntity.ApplicantId;
         oldEntity.ExamId = newEntity.ExamId;
         oldEntity.Score = newEntity.Score;
+        await context.SaveChangesAsync();
         return true;
     }
 }

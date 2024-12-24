@@ -1,6 +1,7 @@
 using UniversityAdmission.Domain.Repositories;
 using UniversityAdmission.Domain.Class;
 using UniversityAdmission.Domain;
+using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,12 +15,13 @@ builder.Services.AddSwaggerGen(option =>
             option.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFileName));
         });
 
+builder.Services.AddDbContext<UniversityAdmissionContext>(options => options.UseMySql(builder.Configuration.GetConnectionString("MySql"), new MySqlServerVersion(new Version())));
 
-builder.Services.AddSingleton<IRepository<Applicant>, ApplicantRepository>();
-builder.Services.AddSingleton<IRepository<Exam>, ExamRepository>();
-builder.Services.AddSingleton<IRepository<ExamResult>, ExamResultRepository>();
-builder.Services.AddSingleton<IRepository<Specialty>, SpecialtyRepository>();
-builder.Services.AddSingleton<IRepository<Application>, ApplicationRepository>();
+builder.Services.AddScoped<IRepository<Applicant>, ApplicantRepository>();
+builder.Services.AddScoped<IRepository<Exam>, ExamRepository>();
+builder.Services.AddScoped<IRepository<ExamResult>, ExamResultRepository>();
+builder.Services.AddScoped<IRepository<Specialty>, SpecialtyRepository>();
+builder.Services.AddScoped<IRepository<Application>, ApplicationRepository>();
 
 
 builder.Services.AddAutoMapper(typeof(Mapper));
