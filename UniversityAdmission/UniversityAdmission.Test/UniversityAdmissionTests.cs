@@ -1,4 +1,6 @@
-﻿namespace UniversityAdmission.Test;
+﻿using UniversityAdmission.Domain;
+
+namespace UniversityAdmission.Test;
 public class UniversityAdmissionTests
 {
     private readonly UniversityAdmissionFixture _data = new UniversityAdmissionFixture();

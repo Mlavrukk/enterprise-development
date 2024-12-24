@@ -4,6 +4,7 @@ namespace UniversityAdmission.Domain;
 
 public class UniversityAdmissionContext : DbContext
 {
+    private readonly UniversityAdmissionFixture _data = new UniversityAdmissionFixture();
     public DbSet<Applicant> Applicants { get; set; }
     public DbSet<Exam> Exams { get; set; }
     public DbSet<ExamResult> ExamResults { get; set; }
@@ -40,11 +41,23 @@ public class UniversityAdmissionContext : DbContext
             .WithMany()
             .HasForeignKey(e => e.ExamId);
 
-
         modelBuilder.Entity<Specialty>()
             .HasIndex(s => s.Code)
             .IsUnique();
+        modelBuilder.Entity<Applicant>()
+            .HasData(_data.Applicants);
 
+        modelBuilder.Entity<Exam>()
+            .HasData(_data.Exams);
+
+        modelBuilder.Entity<ExamResult>()
+            .HasData(_data.ExamResults);
+
+        modelBuilder.Entity<Specialty>()
+            .HasData(_data.Specialtys);
+
+        modelBuilder.Entity<Application>()
+            .HasData(_data.Applications);
         base.OnModelCreating(modelBuilder);
     }
 }

@@ -1,5 +1,5 @@
 using UniversityAdmission.Domain.Class;
-namespace UniversityAdmission.Test;
+namespace UniversityAdmission.Domain;
 public class UniversityAdmissionFixture
 {
     public List<Applicant> Applicants {  get; set; }
@@ -14,7 +14,7 @@ public class UniversityAdmissionFixture
         [
             new Applicant
             {
-                IdApplicant = 0,
+                IdApplicant = -5,
                 FullName = "Васин Василий Васильевич",
                 DateOfBirth = new DateOnly(2004,12,27),
                 Country  = "Россия",
@@ -22,7 +22,7 @@ public class UniversityAdmissionFixture
             },
             new Applicant
             {
-                IdApplicant = 1,
+                IdApplicant = -1,
                 FullName = "Иван Иванов Иванович",
                 DateOfBirth = new DateOnly(2003,12,15),
                 Country  = "Россия",
@@ -30,7 +30,7 @@ public class UniversityAdmissionFixture
             },
             new Applicant
             {
-                IdApplicant = 2,
+                IdApplicant = -2,
                 FullName = "Ле Лок Тхо",
                 DateOfBirth = new DateOnly(2004,2,3),
                 Country  = "Вьетнам",
@@ -38,7 +38,7 @@ public class UniversityAdmissionFixture
             },
             new Applicant
             {
-                IdApplicant = 3,
+                IdApplicant = -3,
                 FullName = "Стивен Парадез",
                 DateOfBirth = new DateOnly(2003,4,10),
                 Country  = "Испания",
@@ -46,7 +46,7 @@ public class UniversityAdmissionFixture
             },
             new Applicant
             {
-                IdApplicant = 4,
+                IdApplicant = -4,
                 FullName = "Олег Монгол Викторович",
                 DateOfBirth = new DateOnly(2005,1,12),
                 Country  = "Россия",
@@ -59,17 +59,17 @@ public class UniversityAdmissionFixture
         [
             new Exam
             {
-                Id = 0,
+                Id = -3,
                 Name = "Математика",
             },
             new Exam
             {
-                Id = 1,
+                Id = -1,
                 Name = "Русский Язык",
             },
             new Exam
             {
-                Id = 2,
+                Id = -2,
                 Name = "Информатика",
             }
         ];
@@ -79,115 +79,115 @@ public class UniversityAdmissionFixture
         [
             new ExamResult
             {
-                IdExamResult = 0,
-                ApplicantId = 0,
+                IdExamResult = -15,
+                ApplicantId = -5,
                 ExamId = 0,
                 Score = 46
             },
             new ExamResult
             {
-                IdExamResult = 1,
-                ApplicantId = 0,
-                ExamId = 1,
+                IdExamResult = -1,
+                ApplicantId = -5,
+                ExamId = -1,
                 Score = 52
             },
             new ExamResult
             {
-                IdExamResult = 2,
-                ApplicantId = 0,
-                ExamId = 2,
+                IdExamResult = -2,
+                ApplicantId = -5,
+                ExamId = -2,
                 Score = 1
             },
 
 
             new ExamResult
             {
-                IdExamResult = 3,
-                ApplicantId = 1,
-                ExamId = 0,
+                IdExamResult = -3,
+                ApplicantId = -1,
+                ExamId = -3,
                 Score = 41
             },
             new ExamResult
             {
-                IdExamResult = 4,
-                ApplicantId = 1,
-                ExamId = 1,
+                IdExamResult = -4,
+                ApplicantId = -1,
+                ExamId = -1,
                 Score = 52
             },
             new ExamResult
             {
-                IdExamResult = 5,
-                ApplicantId = 1,
-                ExamId = 2,
+                IdExamResult = -5,
+                ApplicantId = -1,
+                ExamId = -2,
                 Score = 12
             },
 
 
             new ExamResult
             {
-                IdExamResult = 6,
-                ApplicantId = 2,
-                ExamId = 0,
+                IdExamResult = -6,
+                ApplicantId = -2,
+                ExamId = -3,
                 Score = 100
             },
             new ExamResult
             {
-                IdExamResult = 7,
-                ApplicantId = 2,
-                ExamId = 1,
+                IdExamResult = -7,
+                ApplicantId = -2,
+                ExamId = -1,
                 Score = 52
             },
             new ExamResult
             {
-                IdExamResult = 8,
-                ApplicantId = 2,
-                ExamId = 2,
+                IdExamResult = -8,
+                ApplicantId = -2,
+                ExamId = -2,
                 Score = 100
             },
 
 
             new ExamResult
             {
-                IdExamResult = 9,
-                ApplicantId = 3,
-                ExamId = 0,
+                IdExamResult = -9,
+                ApplicantId = -3,
+                ExamId = -3,
                 Score = 46
             },
             new ExamResult
             {
-                IdExamResult = 10,
-                ApplicantId = 3,
+                IdExamResult = -10,
+                ApplicantId = -3,
                 ExamId = 1,
                 Score = 12
             },
             new ExamResult
             {
-                IdExamResult = 11,
-                ApplicantId = 3,
-                ExamId = 2,
+                IdExamResult = -11,
+                ApplicantId = -3,
+                ExamId = -2,
                 Score = 12
             },
 
 
             new ExamResult
             {
-                IdExamResult = 12,
-                ApplicantId = 4,
-                ExamId = 0,
+                IdExamResult = -12,
+                ApplicantId = -4,
+                ExamId = -3,
                 Score = 52
             },
             new ExamResult
             {
-                IdExamResult = 13,
-                ApplicantId = 4,
-                ExamId = 1,
+                IdExamResult = -13,
+                ApplicantId = -4,
+                ExamId = -1,
                 Score = 52
             },
             new ExamResult
             {
-                IdExamResult = 14,
-                ApplicantId = 4,
-                ExamId = 2,
+                IdExamResult = -14,
+                ApplicantId = -4,
+                ExamId = -2,
                 Score = 52
             },
         ];
@@ -197,14 +197,14 @@ public class UniversityAdmissionFixture
         [
             new Specialty
             {
-                IdSpecialty = 0,
+                IdSpecialty = -2,
                 Code = "10.05.03D",
                 Name = "Ибас",
                 Faculty = "ИИК"
             },
             new Specialty
             {
-                IdSpecialty = 1,
+                IdSpecialty = -1,
                 Code = "10.05.04D",
                 Name = "ФИИТ",
                 Faculty = "ИИК"
@@ -216,9 +216,9 @@ public class UniversityAdmissionFixture
         [
             new Application
             {
-                IdApplication = 0,
-                ApplicantId = 0,
-                SpecialtyId = 0,
+                IdApplication = -1,
+                ApplicantId = -5,
+                SpecialtyId = -2,
                 Priority = 0,
             }
         ];
