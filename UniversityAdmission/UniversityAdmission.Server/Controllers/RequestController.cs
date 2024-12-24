@@ -173,6 +173,4 @@ public class RequestController(IRepository<Applicant> repositoryApplicant, IRepo
 
         return Ok(request);
     }
-
-
 }

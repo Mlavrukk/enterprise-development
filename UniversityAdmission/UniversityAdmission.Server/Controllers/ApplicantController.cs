@@ -6,15 +6,25 @@ using UniversityAdmission.Domain.Repositories;
 
 namespace UniversityAdmission.Server.Controllers;
 
+[Route("api/[controller]")]
 [ApiController]
-[Route("[controller]")]
 public class ApplicantController(IRepository<Applicant> repositoryApplicant, IRepository<ExamResult> repositoryExamResult, IRepository<Application> repositoryApplication, IMapper mapper) : Controller
 {
+    /// <summary>
+    /// Получает список Абитуриентов из репозитория, в формате DtoGet
+    /// </summary>
+    /// <returns></returns>
     [HttpGet]
     public ActionResult<IEnumerable<ApplicantDtoGet>> Get()
     {
         return Ok(mapper.Map<IEnumerable<ApplicantDtoGet>>(repositoryApplicant.GetAll()));
     }
+
+    /// <summary>
+    /// Получает Абитуриента из репозитория по id, в формате Dto
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
     [HttpGet("{id}")]
     public ActionResult<ApplicantDto> Get(int id)
     {
@@ -22,12 +32,25 @@ public class ApplicantController(IRepository<Applicant> repositoryApplicant, IRe
         if (applicant == null) { return NotFound(); }
         return Ok(mapper.Map<ApplicantDto>(applicant));
     }
+
+    /// <summary>
+    /// Добавляет Абитуриента в репозиторий
+    /// </summary>
+    /// <param name="entity">добавляемая сущность в формате Dto</param>
+    /// <returns></returns>
     [HttpPost]
     public IActionResult Post([FromBody] ApplicantDto entity)
     {
         repositoryApplicant.Post(mapper.Map<Applicant>(entity));
         return Ok();
     }
+
+    /// <summary>
+    /// Изменяем поля Абитуриента по id
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="entity"></param>
+    /// <returns></returns>
     [HttpPut("{id}")]
     public IActionResult Put(int id, [FromBody] ApplicantDto entity)
     {
@@ -36,6 +59,11 @@ public class ApplicantController(IRepository<Applicant> repositoryApplicant, IRe
         return NotFound();
     }
 
+    /// <summary>
+    /// Удаляем Абитуриента по id. А так же удаляем зависимые сущности
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
     [HttpDelete]
     public IActionResult Delete(int id)
     {

@@ -10,11 +10,21 @@ namespace UniversityAdmission.Server.Controllers;
 [ApiController]
 public class ApplicationController(IRepository<Application> repositoryApplication, IRepository<Applicant> repositoryApplicant, IRepository<Specialty> repositorySpecialty, IMapper mapper) : Controller
 {
+    /// <summary>
+    /// Получает список Заявлений из репозитория, в формате DtoGet
+    /// </summary>
+    /// <returns></returns>
     [HttpGet]
     public ActionResult<IEnumerable<ApplicationDtoGet>> Get()
     {
         return Ok(mapper.Map<IEnumerable<ApplicationDtoGet>>(repositoryApplication.GetAll()));
     }
+
+    /// <summary>
+    /// Получает Заявление из репозитория по id, в формате Dto
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
     [HttpGet("{id}")]
     public ActionResult<ApplicationDto> Get(int id)
     {
@@ -22,6 +32,12 @@ public class ApplicationController(IRepository<Application> repositoryApplicatio
         if (application == null) { return NotFound(); }
         return Ok(mapper.Map<ApplicationDto>(application));
     }
+
+    /// <summary>
+    /// Добавляет Заявление в репозиторий
+    /// </summary>
+    /// <param name="entity">добавляемая сущность в формате Dto</param>
+    /// <returns></returns>
     [HttpPost]
     public IActionResult Post([FromBody] ApplicationDto entity)
     {
@@ -34,6 +50,13 @@ public class ApplicationController(IRepository<Application> repositoryApplicatio
         repositoryApplication.Post(mapper.Map<Application>(entity));
         return Ok();
     }
+
+    /// <summary>
+    /// Изменяем поля Заявления по id
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="entity"></param>
+    /// <returns></returns>
     [HttpPut("{id}")]
     public IActionResult Put(int id, [FromBody] ApplicationDto entity)
     {
@@ -42,6 +65,11 @@ public class ApplicationController(IRepository<Application> repositoryApplicatio
         return NotFound();
     }
 
+    /// <summary>
+    /// Удаляем Заявление по id.
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
     [HttpDelete]
     public IActionResult Delete(int id)
     {
