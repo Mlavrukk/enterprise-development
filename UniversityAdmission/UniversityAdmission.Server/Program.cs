@@ -12,6 +12,7 @@ builder.Services.AddSwaggerGen();
 
 
 builder.Services.AddSingleton<IRepository<Applicant>, ApplicantRepository>();
+builder.Services.AddSingleton<IRepository<Exam>, ExamRepository>();
 
 
 
@@ -26,9 +27,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
-
-app.UseAuthorization();
 
 app.MapControllers();
 

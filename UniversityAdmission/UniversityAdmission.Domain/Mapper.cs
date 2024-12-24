@@ -11,6 +11,7 @@ public class Mapper: Profile
         CreateMap<Applicant, ApplicantDto>().ReverseMap();
         CreateMap<Applicant, ApplicantDtoGet>().ReverseMap();
 
-
+        CreateMap<Exam, ExamDto>().ReverseMap();
+        CreateMap<Exam, ExamDtoGet>().ReverseMap();
     }
 }

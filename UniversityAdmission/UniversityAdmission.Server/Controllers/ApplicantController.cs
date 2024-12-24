@@ -13,7 +13,7 @@ public class ApplicantController(IRepository<Applicant> repositoryApplicant, IMa
     [HttpGet]
     public ActionResult<IEnumerable<ApplicantDtoGet>> Get() 
     {
-        return Ok(mapper.Map<IEnumerable<ApplicantDtoGet>>(repositoryApplicant.GetAll()))
+        return Ok(mapper.Map<IEnumerable<ApplicantDtoGet>>(repositoryApplicant.GetAll()));
     }
     [HttpGet("{id}")]
     public ActionResult<ApplicantDto> Get(int id)
