@@ -8,7 +8,7 @@ namespace UniversityAdmission.Server.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class ApplicantController(IRepository<Applicant> repositoryApplicant, IRepository<ExamResult> repositoryExamResult, IRepository<Application> repositoryApplication, IMapper mapper) : Controller
+public class ApplicantController(IRepository<Applicant> repositoryApplicant, IRepository<ExamResult> repositoryExamResult, IRepository<Application> repositoryApplication, IMapper mapper) : ControllerBase
 {
     /// <summary>
     /// Получает список Абитуриентов из репозитория, в формате DtoGet
@@ -30,7 +30,7 @@ public class ApplicantController(IRepository<Applicant> repositoryApplicant, IRe
     {
         var applicant = repositoryApplicant.GetById(id);
         if (applicant == null) 
-            return NotFound();
+            return Ok();
         return Ok(mapper.Map<ApplicantDto>(applicant));
     }
 
@@ -57,7 +57,7 @@ public class ApplicantController(IRepository<Applicant> repositoryApplicant, IRe
     {
         if (repositoryApplicant.Put(id, mapper.Map<Applicant>(entity)))
             return Ok();
-        return NotFound();
+        return NoContent();
     }
 
     /// <summary>
@@ -78,6 +78,6 @@ public class ApplicantController(IRepository<Applicant> repositoryApplicant, IRe
             .ForEach(a=> repositoryApplication.Delete(a.IdApplication));
         if (repositoryApplicant.Delete(id))
             return Ok();
-        return NotFound();
+        return NoContent();
     }
 }

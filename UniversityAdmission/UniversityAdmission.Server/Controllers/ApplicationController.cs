@@ -8,7 +8,7 @@ namespace UniversityAdmission.Server.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class ApplicationController(IRepository<Application> repositoryApplication, IRepository<Applicant> repositoryApplicant, IRepository<Specialty> repositorySpecialty, IMapper mapper) : Controller
+public class ApplicationController(IRepository<Application> repositoryApplication, IRepository<Applicant> repositoryApplicant, IRepository<Specialty> repositorySpecialty, IMapper mapper) : ControllerBase
 {
     /// <summary>
     /// Получает список Заявлений из репозитория, в формате DtoGet
@@ -63,7 +63,7 @@ public class ApplicationController(IRepository<Application> repositoryApplicatio
     {
         if (repositoryApplication.Put(id, mapper.Map<Application>(entity)))
             return Ok();
-        return NotFound();
+        return NoContent();
     }
 
     /// <summary>
@@ -76,6 +76,6 @@ public class ApplicationController(IRepository<Application> repositoryApplicatio
     {
         if (repositoryApplication.Delete(id))
             return Ok();
-        return NotFound();
+        return NoContent();
     }
 }

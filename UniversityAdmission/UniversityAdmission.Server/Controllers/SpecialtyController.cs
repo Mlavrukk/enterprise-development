@@ -8,7 +8,7 @@ namespace UniversityAdmission.Server.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class SpecialtyController(IRepository<Specialty> repositorySpecialty, IRepository<Application> repositoryApplication, IMapper mapper) : Controller
+public class SpecialtyController(IRepository<Specialty> repositorySpecialty, IRepository<Application> repositoryApplication, IMapper mapper) : ControllerBase
 {
     /// <summary>
     /// Получает список Специальностей из репозитория, в формате DtoGet
@@ -56,7 +56,7 @@ public class SpecialtyController(IRepository<Specialty> repositorySpecialty, IRe
     {
         if (repositorySpecialty.Put(id, mapper.Map<Specialty>(entity)))
             return Ok();
-        return NotFound();
+        return NoContent();
     }
 
     /// <summary>
@@ -73,6 +73,6 @@ public class SpecialtyController(IRepository<Specialty> repositorySpecialty, IRe
             .ForEach(a => repositoryApplication.Delete(a.IdApplication));
         if (repositorySpecialty.Delete(id))
             return Ok();
-        return NotFound();
+        return NoContent();
     }
 }

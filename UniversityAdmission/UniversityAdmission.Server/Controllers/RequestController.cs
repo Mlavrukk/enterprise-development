@@ -8,7 +8,7 @@ namespace UniversityAdmission.Server.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class RequestController(IRepository<Applicant> repositoryApplicant, IRepository<ExamResult> repositoryExamResult, IRepository<Specialty> repositorySpecialty, IRepository<Application> repositoryApplication) : Controller
+public class RequestController(IRepository<Applicant> repositoryApplicant, IRepository<ExamResult> repositoryExamResult, IRepository<Specialty> repositorySpecialty, IRepository<Application> repositoryApplication) : ControllerBase
 {
     /// <summary>
     /// Вывести информацию об абитуриентах из указанного города.

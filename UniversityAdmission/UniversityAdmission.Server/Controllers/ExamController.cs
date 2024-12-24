@@ -8,7 +8,7 @@ namespace UniversityAdmission.Server.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class ExamController(IRepository<Exam> repositoryExam, IRepository<ExamResult> repositoryExamResult, IMapper mapper) : Controller
+public class ExamController(IRepository<Exam> repositoryExam, IRepository<ExamResult> repositoryExamResult, IMapper mapper) : ControllerBase
 {
     /// <summary>
     /// Получает список Экзаменов из репозитория, в формате DtoGet
@@ -57,7 +57,7 @@ public class ExamController(IRepository<Exam> repositoryExam, IRepository<ExamRe
     {
         if (repositoryExam.Put(id, mapper.Map<Exam>(entity)))
             return Ok();
-        return NotFound();
+        return NoContent();
     }
 
     /// <summary>
@@ -74,7 +74,7 @@ public class ExamController(IRepository<Exam> repositoryExam, IRepository<ExamRe
             .ForEach(e => repositoryExamResult.Delete(e.IdExamResult));
         if (repositoryExam.Delete(id))
             return Ok();
-        return NotFound();
+        return NoContent();
 
     }
 }
