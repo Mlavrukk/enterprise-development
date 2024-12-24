@@ -1,5 +1,9 @@
 ﻿namespace UniversityAdmission.Domain.Dto;
-
+/// <summary>
+/// Класс Результат за Экзамен(ExamResult) Dto. 
+/// Соданный для передачи информации между слоями приложения 
+/// В нашем слуаче Dto совпадает с классом ExamResult.
+/// </summary>
 public class ExamResultDtoGet
 {
     /// <summary>

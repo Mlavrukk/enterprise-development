@@ -1,8 +1,12 @@
 ﻿namespace UniversityAdmission.Domain.Dto;
-
+/// <summary>
+/// Класс Результат за экзамен(ExamResult) Dto 
+/// Данное Dto скрывает реализацию свойства ExamResultId
+/// дабы делегировать назначение Id серверу,
+/// и убрать возможность менять Id уже созданной сущности
+/// </summary>
 public class ExamResultDto
 {
-
     /// <summary>
     /// Идентификатор абитуриента
     /// </summary>

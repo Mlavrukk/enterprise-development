@@ -1,5 +1,9 @@
 ﻿namespace UniversityAdmission.Domain.Dto;
-
+/// <summary>
+/// Класс Специальность Dto. 
+/// Соданный для передачи информации между слоями приложения 
+/// В нашем слуаче Dto совпадает с классом Specialty.
+/// </summary>
 public class SpecialtyDtoGet
 {
     /// <summary>

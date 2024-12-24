@@ -1,5 +1,10 @@
 ﻿namespace UniversityAdmission.Domain.Dto;
-
+/// <summary>
+/// Класс Специальность Dto 
+/// Данное Dto скрывает реализацию свойства IdSpecialty
+/// дабы делегировать назначение Id серверу,
+/// и убрать возможность менять Id уже созданной сущности
+/// </summary>
 public class SpecialtyDto
 {
     /// <summary>

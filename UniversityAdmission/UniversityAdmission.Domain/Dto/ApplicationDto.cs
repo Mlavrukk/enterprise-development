@@ -1,5 +1,10 @@
 ﻿namespace UniversityAdmission.Domain.Dto;
-
+/// <summary>
+/// Класс Заявление Dto 
+/// Данное Dto скрывает реализацию свойства ApplicationId
+/// дабы сделегировать назначение Id серверу,
+/// и убрать возможность менять Id уже созданной сущности
+/// </summary>
 public class ApplicationDto
 {
     /// <summary>
