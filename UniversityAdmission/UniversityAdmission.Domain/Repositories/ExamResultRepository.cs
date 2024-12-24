@@ -11,9 +11,7 @@ public class ExamResultRepository : IRepository<ExamResult>
     {
         var examResult = GetById(id);
         if (examResult == null)
-        {
             return false;
-        }
         _examResults.Remove(examResult);
         return true;
     }
@@ -33,9 +31,7 @@ public class ExamResultRepository : IRepository<ExamResult>
     {
         var oldEntity = GetById(id);
         if (oldEntity == null)
-        {
             return false;
-        }
         oldEntity.ApplicantId = newEntity.ApplicantId;
         oldEntity.ExamId = newEntity.ExamId;
         oldEntity.Score = newEntity.Score;

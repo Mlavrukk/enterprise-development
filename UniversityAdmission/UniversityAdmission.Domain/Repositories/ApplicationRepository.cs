@@ -11,9 +11,7 @@ public class ApplicationRepository : IRepository<Application>
     {
         var exam = GetById(id);
         if (exam == null)
-        {
             return false;
-        }
         _applications.Remove(exam);
         return true;
     }
@@ -33,9 +31,7 @@ public class ApplicationRepository : IRepository<Application>
     {
         var oldEntity = GetById(id);
         if (oldEntity == null)
-        {
             return false;
-        }
         oldEntity.ApplicantId = newEntity.ApplicantId;
         oldEntity.SpecialtyId = newEntity.SpecialtyId;
         oldEntity.Priority = newEntity.Priority;

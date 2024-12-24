@@ -29,7 +29,8 @@ public class ApplicantController(IRepository<Applicant> repositoryApplicant, IRe
     public ActionResult<ApplicantDto> Get(int id)
     {
         var applicant = repositoryApplicant.GetById(id);
-        if (applicant == null) { return NotFound(); }
+        if (applicant == null) 
+            return NotFound();
         return Ok(mapper.Map<ApplicantDto>(applicant));
     }
 

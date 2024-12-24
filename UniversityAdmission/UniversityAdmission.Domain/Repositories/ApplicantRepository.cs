@@ -11,9 +11,7 @@ public class ApplicantRepository : IRepository<Applicant>
     {
         var applicant = GetById(id);
         if (applicant == null)
-        {
             return false;
-        }
         _applicants.Remove(applicant);
         return true;
     }
@@ -33,9 +31,7 @@ public class ApplicantRepository : IRepository<Applicant>
     {
         var oldEntity = GetById(id);
         if (oldEntity == null)
-        {
             return false;
-        }
         oldEntity.DateOfBirth = newEntity.DateOfBirth;
         oldEntity.FullName = newEntity.FullName;
         oldEntity.Country = newEntity.Country;

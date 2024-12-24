@@ -22,9 +22,7 @@ builder.Services.AddSingleton<IRepository<Specialty>, SpecialtyRepository>();
 builder.Services.AddSingleton<IRepository<Application>, ApplicationRepository>();
 
 
-
 builder.Services.AddAutoMapper(typeof(Mapper));
-
 
 var app = builder.Build();
 

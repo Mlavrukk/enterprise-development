@@ -11,9 +11,7 @@ public class ExamRepository :IRepository<Exam>
     {
         var exam = GetById(id);
         if (exam == null)
-        {
             return false;
-        }
         _exams.Remove(exam);
         return true;
     }
@@ -33,9 +31,7 @@ public class ExamRepository :IRepository<Exam>
     {
         var oldEntity = GetById(id);
         if (oldEntity == null)
-        {
             return false;
-        }
         oldEntity.Name = newEntity.Name;
         return true;
     }

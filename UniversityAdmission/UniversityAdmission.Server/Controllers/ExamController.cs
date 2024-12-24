@@ -29,7 +29,8 @@ public class ExamController(IRepository<Exam> repositoryExam, IRepository<ExamRe
     public ActionResult<ExamDto> Get(int id)
     {
         var exam = repositoryExam.GetById(id);
-        if (exam == null) { return NotFound(); }
+        if (exam == null)
+            return NotFound();
         return Ok(mapper.Map<ExamDto>(exam));
     }
 

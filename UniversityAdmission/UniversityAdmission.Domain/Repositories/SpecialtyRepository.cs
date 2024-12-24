@@ -11,9 +11,7 @@ public class SpecialtyRepository : IRepository<Specialty>
     {
         var specialty = GetById(id);
         if (specialty == null)
-        {
             return false;
-        }
         _specialtys.Remove(specialty);
         return true;
     }
@@ -33,13 +31,10 @@ public class SpecialtyRepository : IRepository<Specialty>
     {
         var oldEntity = GetById(id);
         if (oldEntity == null)
-        {
             return false;
-        }
         oldEntity.Code = newEntity.Code;
         oldEntity.Name = newEntity.Name;
         oldEntity.Faculty = newEntity.Faculty;
         return true;
     }
-
 }

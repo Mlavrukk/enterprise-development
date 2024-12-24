@@ -29,7 +29,8 @@ public class ApplicationController(IRepository<Application> repositoryApplicatio
     public ActionResult<ApplicationDto> Get(int id)
     {
         var application = repositoryApplication.GetById(id);
-        if (application == null) { return NotFound(); }
+        if (application == null) 
+            return NotFound();
         return Ok(mapper.Map<ApplicationDto>(application));
     }
 
