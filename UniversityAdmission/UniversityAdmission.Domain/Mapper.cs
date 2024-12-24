@@ -13,5 +13,8 @@ public class Mapper: Profile
 
         CreateMap<Exam, ExamDto>().ReverseMap();
         CreateMap<Exam, ExamDtoGet>().ReverseMap();
+
+        CreateMap<ExamResult, ExamResultDto>().ReverseMap();
+        CreateMap<ExamResult, ExamResultDtoGet>().ReverseMap();
     }
 }
