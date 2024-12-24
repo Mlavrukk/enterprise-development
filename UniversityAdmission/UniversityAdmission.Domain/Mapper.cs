@@ -20,6 +20,7 @@ public class Mapper: Profile
         CreateMap<Specialty, SpecialtyDto>().ReverseMap();
         CreateMap<Specialty, SpecialtyDtoGet>().ReverseMap();
 
-
+        CreateMap<Application, ApplicationDto>().ReverseMap();
+        CreateMap<Application, ApplicationDtoGet>().ReverseMap();
     }
 }
