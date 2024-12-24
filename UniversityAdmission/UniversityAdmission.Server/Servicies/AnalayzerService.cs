@@ -9,18 +9,18 @@ namespace UniversityAdmission.Server.Servicies;
 
 public class AnalayzerService(IRepository<Applicant> repositoryApplicant, IRepository<Application> repositoryApplication, IRepository<Exam> repositoryExam, IRepository<ExamResult> repositoryExamResult, IRepository<Specialty> repositorySpecialty, IMapper mapper) : IAnalayzerService
 {
-    public IEnumerable<ApplicantDtoGet> GetApplicantByCity(string city)
+    public async Task<IEnumerable<ApplicantDtoGet>> GetApplicantByCity(string city)
     {
-        var request = (from applicant in repositoryApplicant.GetAll()
+        var request = (from applicant in await repositoryApplicant.GetAll()
                        where applicant.City == city
                        select applicant);
         return mapper.Map<IEnumerable<ApplicantDtoGet>>(request);
     }
 
-    public IEnumerable<ApplicantDtoGet> GetApplicantOlderValue(int ageLimit)
+    public async Task<IEnumerable<ApplicantDtoGet>> GetApplicantOlderValue(int ageLimit)
     {
         DateOnly currentDate = DateOnly.FromDateTime(DateTime.Now);
-        var request = repositoryApplicant.GetAll()
+        var request = (await repositoryApplicant.GetAll())
            .Where(applicant =>
            {
                int age = currentDate.Year - applicant.DateOfBirth.Year;
@@ -36,12 +36,12 @@ public class AnalayzerService(IRepository<Applicant> repositoryApplicant, IRepos
 
         return mapper.Map<IEnumerable<ApplicantDtoGet>>(request);
     }
-    public IEnumerable<ApplicantDtoWithExamResult> GetApplicantsBySpecialtySortedByExamScores(string specialtyCode)
+    public async Task<IEnumerable<ApplicantDtoWithExamResult>> GetApplicantsBySpecialtySortedByExamScores(string specialtyCode)
     {
-        var request = (from applicant in repositoryApplicant.GetAll()
-                       join application in repositoryApplication.GetAll() on applicant.IdApplicant equals application.ApplicantId
-                       join specialty in repositorySpecialty.GetAll() on application.SpecialtyId equals specialty.IdSpecialty
-                       join examResult in repositoryExamResult.GetAll() on applicant.IdApplicant equals examResult.ApplicantId
+        var request = (from applicant in (await repositoryApplicant.GetAll())
+                       join application in (await repositoryApplication.GetAll()) on applicant.IdApplicant equals application.ApplicantId
+                       join specialty in (await repositorySpecialty.GetAll()) on application.SpecialtyId equals specialty.IdSpecialty
+                       join examResult in (await repositoryExamResult.GetAll()) on applicant.IdApplicant equals examResult.ApplicantId
                        where specialty.Code == specialtyCode
                        group examResult by new
                        {
@@ -60,10 +60,10 @@ public class AnalayzerService(IRepository<Applicant> repositoryApplicant, IRepos
 
     }
 
-    public IEnumerable<ApplicantCountForSpecialityDto> GetCountApplicantToSpecialty()
+    public async Task<IEnumerable<ApplicantCountForSpecialityDto>> GetCountApplicantToSpecialty()
     {
-        var request = (from application in repositoryApplication.GetAll()
-                       join specialty in repositorySpecialty.GetAll() on application.SpecialtyId equals specialty.IdSpecialty
+        var request = (from application in (await repositoryApplication.GetAll())
+                       join specialty in (await repositorySpecialty.GetAll()) on application.SpecialtyId equals specialty.IdSpecialty
                        where application.Priority == 0
                        group application by specialty.IdSpecialty into specialtyGroup
                        select new ApplicantCountForSpecialityDto
@@ -75,10 +75,10 @@ public class AnalayzerService(IRepository<Applicant> repositoryApplicant, IRepos
         return request;
     }
 
-    public IEnumerable<TopFiveApplicantDto> GetTopFiveApplicantToScore()
+    public async Task<IEnumerable<TopFiveApplicantDto>> GetTopFiveApplicantToScore()
     {
-        var request = (from examResult in repositoryExamResult.GetAll()
-                       join applicant in repositoryApplicant.GetAll() on examResult.ApplicantId equals applicant.IdApplicant
+        var request = (from examResult in (await repositoryExamResult.GetAll())
+                       join applicant in (await repositoryApplicant.GetAll()) on examResult.ApplicantId equals applicant.IdApplicant
                        group examResult by applicant into applicantGroup
                        let totalScore = applicantGroup.Sum(result => result.Score)
                        orderby totalScore descending
@@ -91,25 +91,27 @@ public class AnalayzerService(IRepository<Applicant> repositoryApplicant, IRepos
                        .ToList();
         return request;
     }
-    public IEnumerable<ApplicantWithMaxScoreWithSpecialty> GetApplicantAndSpecialtyMaxScore()
+    public async Task<IEnumerable<ApplicantWithMaxScoreWithSpecialty>> GetApplicantAndSpecialtyMaxScore()
     {
-        var request = (from examResult in repositoryExamResult.GetAll()
-                       join applicant in repositoryApplicant.GetAll() on examResult.ApplicantId equals applicant.IdApplicant
-                       join application in repositoryApplication.GetAll() on applicant.IdApplicant equals application.ApplicantId
-                       join specialty in repositorySpecialty.GetAll() on application.SpecialtyId equals specialty.IdSpecialty
+        var applicants = await repositoryApplicant.GetAll();
+        var applications = await repositoryApplication.GetAll();
+        var request = (from examResult in (await repositoryExamResult.GetAll())
+                       join applicant in applicants on examResult.ApplicantId equals applicant.IdApplicant
+                       join application in applications on applicant.IdApplicant equals application.ApplicantId
+                       join specialty in (await repositorySpecialty.GetAll()) on application.SpecialtyId equals specialty.IdSpecialty
                        group examResult by examResult.ExamId into examGroup
                        let maxScore = examGroup.Max(result => result.Score)
                        select new ApplicantWithMaxScoreWithSpecialty
                        {
                            Applicant = (from result in examGroup
                                         where result.Score == maxScore
-                                        join applicant in repositoryApplicant.GetAll() on result.ApplicantId equals applicant.IdApplicant
+                                        join applicant in applicants on result.ApplicantId equals applicant.IdApplicant
                                         select applicant).FirstOrDefault(),
                            MaxScore = maxScore,
                            SpecialtyId = (from result in examGroup
                                           where result.Score == maxScore
-                                          join applicant in repositoryApplicant.GetAll() on result.ApplicantId equals applicant.IdApplicant
-                                          join application in repositoryApplication.GetAll() on applicant.IdApplicant equals application.ApplicantId
+                                          join applicant in applicants on result.ApplicantId equals applicant.IdApplicant
+                                          join application in applications on applicant.IdApplicant equals application.ApplicantId
                                           select application.SpecialtyId).FirstOrDefault()
                        })
                        .ToList();

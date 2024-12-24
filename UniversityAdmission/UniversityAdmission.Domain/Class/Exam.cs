@@ -11,7 +11,7 @@ public class Exam
     /// Идентификатор экзамена
     /// </summary>
     [Key]
-    public required int IdExam { get; set; }
+    public required int Id { get; set; }
 
     /// <summary>
     /// Название экзамена

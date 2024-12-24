@@ -24,7 +24,7 @@ builder.Services.AddScoped<IRepository<ExamResult>, ExamResultRepository>();
 builder.Services.AddScoped<IRepository<Specialty>, SpecialtyRepository>();
 builder.Services.AddScoped<IRepository<Application>, ApplicationRepository>();
 
-builder.Services.AddTransient<IAnalayzerService, AnalayzerService>();
+//builder.Services.AddTransient<IAnalayzerService, AnalayzerService>();
 
 builder.Services.AddAutoMapper(typeof(Mapper));
 

@@ -17,7 +17,7 @@ public class ExamRepository(UniversityAdmissionContext context) : IRepository<Ex
 
     public async Task<List<Exam>> GetAll() => await context.Exams.ToListAsync();
 
-    public async Task<Exam?> GetById(int id) => await context.Exams.FirstOrDefaultAsync(e => e.IdExam == id);
+    public async Task<Exam?> GetById(int id) => await context.Exams.FirstOrDefaultAsync(e => e.Id == id);
 
     public async Task<Exam> Post(Exam entity)
     {

@@ -5,11 +5,11 @@ namespace UniversityAdmission.Server.Servicies
 {
     public interface IAnalayzerService
     {
-        IEnumerable<ApplicantWithMaxScoreWithSpecialty> GetApplicantAndSpecialtyMaxScore();
-        IEnumerable<ApplicantDtoGet> GetApplicantByCity(string city);
-        IEnumerable<ApplicantDtoGet> GetApplicantOlderValue(int ageLimit);
-        IEnumerable<ApplicantDtoWithExamResult> GetApplicantsBySpecialtySortedByExamScores(string specialtyCode);
-        IEnumerable<ApplicantCountForSpecialityDto> GetCountApplicantToSpecialty();
-        IEnumerable<TopFiveApplicantDto> GetTopFiveApplicantToScore();
+        Task<IEnumerable<ApplicantWithMaxScoreWithSpecialty>> GetApplicantAndSpecialtyMaxScore();
+        Task<IEnumerable<ApplicantDtoGet>> GetApplicantByCity(string city);
+        Task<IEnumerable<ApplicantDtoGet>> GetApplicantOlderValue(int ageLimit);
+        Task<IEnumerable<ApplicantDtoWithExamResult>> GetApplicantsBySpecialtySortedByExamScores(string specialtyCode);
+        Task<IEnumerable<ApplicantCountForSpecialityDto>> GetCountApplicantToSpecialty();
+        Task<IEnumerable<TopFiveApplicantDto>> GetTopFiveApplicantToScore();
     }
 }

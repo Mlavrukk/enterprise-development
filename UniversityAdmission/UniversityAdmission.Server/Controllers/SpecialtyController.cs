@@ -15,9 +15,10 @@ public class SpecialtyController(IRepository<Specialty> repositorySpecialty, IRe
     /// </summary>
     /// <returns></returns>
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<SpecialtyDtoGet>>> Get()
+    public async Task<ActionResult<List<SpecialtyDtoGet>>> Get()
     {
-        return Ok(mapper.Map<IEnumerable<SpecialtyDtoGet>>(repositorySpecialty.GetAll()));
+        var specialities = await repositorySpecialty.GetAll();
+        return Ok(specialities.Select(s => mapper.Map<SpecialtyDtoGet>(s)));
     }
 
     /// <summary>

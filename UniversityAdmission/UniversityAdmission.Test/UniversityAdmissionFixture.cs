@@ -59,17 +59,17 @@ public class UniversityAdmissionFixture
         [
             new Exam
             {
-                IdExam = 0,
+                Id = 0,
                 Name = "Математика",
             },
             new Exam
             {
-                IdExam = 1,
+                Id = 1,
                 Name = "Русский Язык",
             },
             new Exam
             {
-                IdExam = 2,
+                Id = 2,
                 Name = "Информатика",
             }
         ];

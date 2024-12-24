@@ -40,10 +40,6 @@ public class UniversityAdmissionContext : DbContext
             .WithMany()
             .HasForeignKey(e => e.ExamId);
 
-        modelBuilder.Entity<Exam>()
-            .HasOne<ExamResult>()
-            .WithMany()
-            .HasForeignKey(e => e.IdExam);
 
         modelBuilder.Entity<Specialty>()
             .HasIndex(s => s.Code)
