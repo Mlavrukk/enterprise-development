@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace UniversityAdmission.Domain.Class;
 
 /// <summary>
@@ -8,6 +10,7 @@ public class ExamResult
     /// <summary>
     /// Идентификатор результата
     /// </summary>
+    [Key]
     public required int IdExamResult { get; set; }
 
     /// <summary>

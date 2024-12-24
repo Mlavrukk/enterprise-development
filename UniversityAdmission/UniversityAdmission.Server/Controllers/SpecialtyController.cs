@@ -15,7 +15,7 @@ public class SpecialtyController(IRepository<Specialty> repositorySpecialty, IRe
     /// </summary>
     /// <returns></returns>
     [HttpGet]
-    public ActionResult<IEnumerable<SpecialtyDtoGet>> Get()
+    public async Task<ActionResult<IEnumerable<SpecialtyDtoGet>>> Get()
     {
         return Ok(mapper.Map<IEnumerable<SpecialtyDtoGet>>(repositorySpecialty.GetAll()));
     }
@@ -26,10 +26,11 @@ public class SpecialtyController(IRepository<Specialty> repositorySpecialty, IRe
     /// <param name="id"></param>
     /// <returns></returns>
     [HttpGet("{id}")]
-    public ActionResult<SpecialtyDto> Get(int id)
+    public async Task<ActionResult<SpecialtyDto>> Get(int id)
     {
-        var specialty = repositorySpecialty.GetById(id);
-        if (specialty == null) { return NotFound(); }
+        var specialty = await repositorySpecialty.GetById(id);
+        if (specialty == null)
+            return NoContent();
         return Ok(mapper.Map<SpecialtyDto>(specialty));
     }
 
@@ -39,9 +40,9 @@ public class SpecialtyController(IRepository<Specialty> repositorySpecialty, IRe
     /// <param name="entity">добавляемая сущность в формате Dto</param>
     /// <returns></returns>
     [HttpPost]
-    public IActionResult Post([FromBody] SpecialtyDto entity)
+    public async Task<IActionResult> Post([FromBody] SpecialtyDto entity)
     {
-        repositorySpecialty.Post(mapper.Map<Specialty>(entity));
+        await repositorySpecialty.Post(mapper.Map<Specialty>(entity));
         return Ok();
     }
 
@@ -52,11 +53,11 @@ public class SpecialtyController(IRepository<Specialty> repositorySpecialty, IRe
     /// <param name="entity"></param>
     /// <returns></returns>
     [HttpPut("{id}")]
-    public IActionResult Put(int id, [FromBody] SpecialtyDto entity)
+    public async Task<IActionResult> Put(int id, [FromBody] SpecialtyDto entity)
     {
-        if (repositorySpecialty.Put(id, mapper.Map<Specialty>(entity)))
+        if (await repositorySpecialty.Put(id, mapper.Map<Specialty>(entity)))
             return Ok();
-        return NotFound();
+        return NoContent();
     }
 
     /// <summary>
@@ -65,14 +66,10 @@ public class SpecialtyController(IRepository<Specialty> repositorySpecialty, IRe
     /// <param name="id"></param>
     /// <returns></returns>
     [HttpDelete]
-    public IActionResult Delete(int id)
+    public async Task<IActionResult> Delete(int id)
     {
-        repositoryApplication.GetAll()
-            .Where(a => a.SpecialtyId == id)
-            .ToList()
-            .ForEach(a => repositoryApplication.Delete(a.IdApplication));
-        if (repositorySpecialty.Delete(id))
+        if (await repositorySpecialty.Delete(id))
             return Ok();
-        return NotFound();
+        return NoContent();
     }
 }

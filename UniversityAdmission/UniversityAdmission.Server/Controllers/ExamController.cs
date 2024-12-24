@@ -15,9 +15,9 @@ public class ExamController(IRepository<Exam> repositoryExam, IRepository<ExamRe
     /// </summary>
     /// <returns></returns>
     [HttpGet]
-    public ActionResult<IEnumerable<ExamDtoGet>> Get()
+    public async Task<ActionResult<IEnumerable<ExamDtoGet>>> Get()
     {
-        return Ok(mapper.Map<IEnumerable<ExamDtoGet>>(repositoryExam.GetAll()));
+        return Ok(mapper.Map<IEnumerable<ExamDtoGet>>(await repositoryExam.GetAll()));
     }
 
     /// <summary>
@@ -26,11 +26,11 @@ public class ExamController(IRepository<Exam> repositoryExam, IRepository<ExamRe
     /// <param name="id"></param>
     /// <returns></returns>
     [HttpGet("{id}")]
-    public ActionResult<ExamDto> Get(int id)
+    public async Task<ActionResult<ExamDto>> Get(int id)
     {
-        var exam = repositoryExam.GetById(id);
+        var exam = await repositoryExam.GetById(id);
         if (exam == null)
-            return NotFound();
+            return NoContent();
         return Ok(mapper.Map<ExamDto>(exam));
     }
 
@@ -40,9 +40,9 @@ public class ExamController(IRepository<Exam> repositoryExam, IRepository<ExamRe
     /// <param name="entity">добавляемая сущность в формате Dto</param>
     /// <returns></returns>
     [HttpPost]
-    public IActionResult Post([FromBody] ExamDto entity)
+    public async Task<IActionResult> Post([FromBody] ExamDto entity)
     {
-        repositoryExam.Post(mapper.Map<Exam>(entity));
+        await repositoryExam.Post(mapper.Map<Exam>(entity));
         return Ok();
     }
 
@@ -53,11 +53,11 @@ public class ExamController(IRepository<Exam> repositoryExam, IRepository<ExamRe
     /// <param name="entity"></param>
     /// <returns></returns>
     [HttpPut("{id}")]
-    public IActionResult Put(int id, [FromBody] ExamDto entity)
+    public async Task<IActionResult> Put(int id, [FromBody] ExamDto entity)
     {
-        if (repositoryExam.Put(id, mapper.Map<Exam>(entity)))
+        if (await repositoryExam.Put(id, mapper.Map<Exam>(entity)))
             return Ok();
-        return NotFound();
+        return NoContent();
     }
 
     /// <summary>
@@ -66,15 +66,11 @@ public class ExamController(IRepository<Exam> repositoryExam, IRepository<ExamRe
     /// <param name="id"></param>
     /// <returns></returns>
     [HttpDelete]
-    public IActionResult Delete(int id)
+    public async Task<IActionResult> Delete(int id)
     {
-        repositoryExamResult.GetAll()
-            .Where(e => e.ExamId == id)
-            .ToList()
-            .ForEach(e => repositoryExamResult.Delete(e.IdExamResult));
-        if (repositoryExam.Delete(id))
+        if (await repositoryExam.Delete(id))
             return Ok();
-        return NotFound();
+        return NoContent();
 
     }
 }

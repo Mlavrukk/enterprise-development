@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace UniversityAdmission.Domain.Class;
 
 /// <summary>
@@ -8,6 +10,7 @@ public class Specialty
     /// <summary>
     /// Идентификатор специальности
     /// </summary>
+    [Key]
     public required int IdSpecialty { get; set; }
     /// <summary>
     /// Шифр специальности

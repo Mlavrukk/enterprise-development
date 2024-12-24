@@ -15,9 +15,9 @@ public class ApplicantController(IRepository<Applicant> repositoryApplicant, IRe
     /// </summary>
     /// <returns></returns>
     [HttpGet]
-    public ActionResult<IEnumerable<ApplicantDtoGet>> Get()
+    public async Task<ActionResult<IEnumerable<ApplicantDtoGet>>> Get()
     {
-        return Ok(mapper.Map<IEnumerable<ApplicantDtoGet>>(repositoryApplicant.GetAll()));
+        return Ok(mapper.Map<IEnumerable<ApplicantDtoGet>>(await repositoryApplicant.GetAll()));
     }
 
     /// <summary>
@@ -26,11 +26,11 @@ public class ApplicantController(IRepository<Applicant> repositoryApplicant, IRe
     /// <param name="id"></param>
     /// <returns></returns>
     [HttpGet("{id}")]
-    public ActionResult<ApplicantDto> Get(int id)
+    public async Task<ActionResult<ApplicantDto>> Get(int id)
     {
-        var applicant = repositoryApplicant.GetById(id);
-        if (applicant == null) 
-            return NotFound();
+        var applicant = await repositoryApplicant.GetById(id);
+        if (applicant == null)
+            return NoContent();
         return Ok(mapper.Map<ApplicantDto>(applicant));
     }
 
@@ -40,9 +40,9 @@ public class ApplicantController(IRepository<Applicant> repositoryApplicant, IRe
     /// <param name="entity">добавляемая сущность в формате Dto</param>
     /// <returns></returns>
     [HttpPost]
-    public IActionResult Post([FromBody] ApplicantDto entity)
+    public async Task<IActionResult> Post([FromBody] ApplicantDto entity)
     {
-        repositoryApplicant.Post(mapper.Map<Applicant>(entity));
+        await repositoryApplicant.Post(mapper.Map<Applicant>(entity));
         return Ok();
     }
 
@@ -53,11 +53,11 @@ public class ApplicantController(IRepository<Applicant> repositoryApplicant, IRe
     /// <param name="entity"></param>
     /// <returns></returns>
     [HttpPut("{id}")]
-    public IActionResult Put(int id, [FromBody] ApplicantDto entity)
+    public async Task<IActionResult> Put(int id, [FromBody] ApplicantDto entity)
     {
-        if (repositoryApplicant.Put(id, mapper.Map<Applicant>(entity)))
+        if (await repositoryApplicant.Put(id, mapper.Map<Applicant>(entity)))
             return Ok();
-        return NotFound();
+        return NoContent();
     }
 
     /// <summary>
@@ -66,18 +66,10 @@ public class ApplicantController(IRepository<Applicant> repositoryApplicant, IRe
     /// <param name="id"></param>
     /// <returns></returns>
     [HttpDelete]
-    public IActionResult Delete(int id)
+    public async Task<IActionResult> Delete(int id)
     {
-        repositoryExamResult.GetAll()
-            .Where(e => e.ApplicantId == id)
-            .ToList()
-            .ForEach(e => repositoryExamResult.Delete(e.IdExamResult));
-        repositoryApplication.GetAll()
-            .Where(a => a.ApplicantId == id)
-            .ToList()
-            .ForEach(a=> repositoryApplication.Delete(a.IdApplication));
-        if (repositoryApplicant.Delete(id))
+        if (await repositoryApplicant.Delete(id))
             return Ok();
-        return NotFound();
+        return NoContent();
     }
 }

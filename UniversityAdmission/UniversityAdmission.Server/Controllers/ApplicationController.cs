@@ -15,9 +15,9 @@ public class ApplicationController(IRepository<Application> repositoryApplicatio
     /// </summary>
     /// <returns></returns>
     [HttpGet]
-    public ActionResult<IEnumerable<ApplicationDtoGet>> Get()
+    public async Task<ActionResult<IEnumerable<ApplicationDtoGet>>> Get()
     {
-        return Ok(mapper.Map<IEnumerable<ApplicationDtoGet>>(repositoryApplication.GetAll()));
+        return Ok(mapper.Map<IEnumerable<ApplicationDtoGet>>(await repositoryApplication.GetAll()));
     }
 
     /// <summary>
@@ -26,11 +26,11 @@ public class ApplicationController(IRepository<Application> repositoryApplicatio
     /// <param name="id"></param>
     /// <returns></returns>
     [HttpGet("{id}")]
-    public ActionResult<ApplicationDto> Get(int id)
+    public async Task<ActionResult<ApplicationDto>> Get(int id)
     {
-        var application = repositoryApplication.GetById(id);
-        if (application == null) 
-            return NotFound();
+        var application = await repositoryApplication.GetById(id);
+        if (application == null)
+            return NoContent();
         return Ok(mapper.Map<ApplicationDto>(application));
     }
 
@@ -40,15 +40,15 @@ public class ApplicationController(IRepository<Application> repositoryApplicatio
     /// <param name="entity">добавляемая сущность в формате Dto</param>
     /// <returns></returns>
     [HttpPost]
-    public IActionResult Post([FromBody] ApplicationDto entity)
+    public async Task<IActionResult> Post([FromBody] ApplicationDto entity)
     {
-        var applicant = repositoryApplicant.GetById(entity.ApplicantId);
-        var specialty = repositorySpecialty.GetById(entity.SpecialtyId);
-        if(specialty == null)
+        var applicant = await repositoryApplicant.GetById(entity.ApplicantId);
+        var specialty = await repositorySpecialty.GetById(entity.SpecialtyId);
+        if (specialty == null)
             return NotFound($"Специальность с такимм id({entity.SpecialtyId}) не найдена");
         if (applicant == null)
             return NotFound($"Абитуриент с таким id({entity.ApplicantId}) не найден");
-        repositoryApplication.Post(mapper.Map<Application>(entity));
+        await repositoryApplication.Post(mapper.Map<Application>(entity));
         return Ok();
     }
 
@@ -59,11 +59,11 @@ public class ApplicationController(IRepository<Application> repositoryApplicatio
     /// <param name="entity"></param>
     /// <returns></returns>
     [HttpPut("{id}")]
-    public IActionResult Put(int id, [FromBody] ApplicationDto entity)
+    public async Task<IActionResult> Put(int id, [FromBody] ApplicationDto entity)
     {
-        if (repositoryApplication.Put(id, mapper.Map<Application>(entity)))
+        if (await repositoryApplication.Put(id, mapper.Map<Application>(entity)))
             return Ok();
-        return NotFound();
+        return NoContent();
     }
 
     /// <summary>
@@ -72,10 +72,10 @@ public class ApplicationController(IRepository<Application> repositoryApplicatio
     /// <param name="id"></param>
     /// <returns></returns>
     [HttpDelete]
-    public IActionResult Delete(int id)
+    public async Task<IActionResult> Delete(int id)
     {
-        if (repositoryApplication.Delete(id))
+        if (await repositoryApplication.Delete(id))
             return Ok();
-        return NotFound();
+        return NoContent();
     }
 }

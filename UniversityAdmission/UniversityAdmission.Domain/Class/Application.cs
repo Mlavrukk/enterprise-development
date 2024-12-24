@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace UniversityAdmission.Domain.Class;
 
 /// <summary>
@@ -8,6 +10,7 @@ public class Application
     /// <summary>
     /// Идентификатор заявления
     /// </summary>
+    [Key]
     public required int IdApplication { get; set; }
 
     /// <summary>

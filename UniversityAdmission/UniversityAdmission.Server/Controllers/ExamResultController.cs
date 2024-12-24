@@ -15,9 +15,9 @@ public class ExamResultController(IRepository<ExamResult> repositoryExamResult, 
     /// </summary>
     /// <returns></returns>
     [HttpGet]
-    public ActionResult<IEnumerable<ExamResultDtoGet>> Get()
+    public async Task<ActionResult<IEnumerable<ExamResultDtoGet>>> Get()
     {
-        return Ok(mapper.Map<IEnumerable<ExamResultDtoGet>>(repositoryExamResult.GetAll()));
+        return Ok(mapper.Map<IEnumerable<ExamResultDtoGet>>(await repositoryExamResult.GetAll()));
     }
 
     /// <summary>
@@ -26,10 +26,11 @@ public class ExamResultController(IRepository<ExamResult> repositoryExamResult, 
     /// <param name="id"></param>
     /// <returns></returns>
     [HttpGet("{id}")]
-    public ActionResult<ExamResultDto> Get(int id)
+    public async Task<ActionResult<ExamResultDto>> Get(int id)
     {
-        var applicant = repositoryExamResult.GetById(id);
-        if (applicant == null) { return NotFound(); }
+        var applicant = await repositoryExamResult.GetById(id);
+        if (applicant == null)
+            return NoContent();
         return Ok(mapper.Map<ExamResultDto>(applicant));
     }
 
@@ -39,15 +40,15 @@ public class ExamResultController(IRepository<ExamResult> repositoryExamResult, 
     /// <param name="entity">добавляемая сущность в формате Dto</param>
     /// <returns></returns>
     [HttpPost]
-    public IActionResult Post([FromBody] ExamResultDto entity)
+    public async Task<IActionResult> Post([FromBody] ExamResultDto entity)
     {
-        var applicant = repositoryApplicant.GetById(entity.ApplicantId);
-        var exam = repositoryExam.GetById(entity.ExamId);
+        var applicant = await repositoryApplicant.GetById(entity.ApplicantId);
+        var exam = await repositoryExam.GetById(entity.ExamId);
         if (applicant == null)
             return NotFound($"Applicant c таким id({entity.ApplicantId}) не найден");
         if (exam == null)
             return NotFound($"Exam c таким id({entity.ExamId}) не найден");
-        repositoryExamResult.Post(mapper.Map<ExamResult>(entity));
+        await repositoryExamResult.Post(mapper.Map<ExamResult>(entity));
         return Ok();
     }
 
@@ -58,11 +59,11 @@ public class ExamResultController(IRepository<ExamResult> repositoryExamResult, 
     /// <param name="entity"></param>
     /// <returns></returns>
     [HttpPut("{id}")]
-    public IActionResult Put(int id, [FromBody] ExamResultDto entity)
+    public async Task<IActionResult> Put(int id, [FromBody] ExamResultDto entity)
     {
-        if (repositoryExamResult.Put(id, mapper.Map<ExamResult>(entity)))
+        if (await repositoryExamResult.Put(id, mapper.Map<ExamResult>(entity)))
             return Ok();
-        return NotFound();
+        return NoContent();
     }
     /// <summary>
     /// Удаляем Результат за Экзамен по id.
@@ -70,10 +71,10 @@ public class ExamResultController(IRepository<ExamResult> repositoryExamResult, 
     /// <param name="id"></param>
     /// <returns></returns>
     [HttpDelete]
-    public IActionResult Delete(int id)
+    public async Task<IActionResult> Delete(int id)
     {
-        if (repositoryExamResult.Delete(id))
+        if (await repositoryExamResult.Delete(id))
             return Ok();
-        return NotFound();
+        return NoContent();
     }
 }

@@ -15,7 +15,7 @@ builder.Services.AddSwaggerGen(option =>
             option.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFileName));
         });
 
-builder.Services.AddDbContext<UniversityAdmissionContext>(options => options.UseMySql(builder.Configuration.GetConnectionString("MySql"), new MySqlServerVersion(new Version())));
+builder.Services.AddDbContext<UniversityAdmissionContext>(options => options.UseMySql(builder.Configuration.GetConnectionString("MySql52"), new MySqlServerVersion(new Version(8,0,4))));
 
 builder.Services.AddScoped<IRepository<Applicant>, ApplicantRepository>();
 builder.Services.AddScoped<IRepository<Exam>, ExamRepository>();
